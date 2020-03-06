@@ -22,6 +22,7 @@ import userRoute from './modules/user'
  * meta : {
     roles: ['admin','editor']     set permissions for this route, control the page roles (you can set multiple roles)
     title: `${title}`             the name show in sidebar and breadcrumb (recommend set)
+    iconType: 'font-awesome'      the type of icon, can be set one of ['font-awesome', 'svg', 'element'](default is 'font-awesome')
     icon: `${iconName}`           the icon show in the sidebar
     noCache: true                 if set true, the page will no be cached(default is false)
     affix: true                   if set true, the tag will affix in the tags-view
@@ -42,7 +43,7 @@ export const constantRoutes = [
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/dashboard'),
       name: 'Dashboard',
       meta: {
         title: 'Dashboard',
@@ -57,7 +58,7 @@ export const constantRoutes = [
     hidden: true,
     children: [{
       path: '/redirect/:path(.*)',
-      component: () => import('@/views/redirect/index')
+      component: () => import('@/views/redirect')
     }]
   },
   {

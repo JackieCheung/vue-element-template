@@ -10,6 +10,7 @@ import router from './router'
 
 import './auth' // permission control
 import * as filters from './filters' // global filters
+import './assets/icons' // Svg Icon
 import './vendors/font-awesome-icon' // Font Awesome Icon
 
 Vue.use(Element)
