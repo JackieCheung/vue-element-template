@@ -3,7 +3,7 @@
   import { isExternal } from '@/utils/validate'
   import MenuItem from './MenuItem'
   import AppLink from './Link'
-  import FixIOSBug from '../mixins/fix-ios-bug'
+  import FixIOSBugMixin from '../mixins/fix-ios-bug'
 
   export default {
     name: 'SidebarItem',
@@ -11,7 +11,7 @@
       MenuItem,
       AppLink
     },
-    mixins: [FixIOSBug],
+    mixins: [FixIOSBugMixin],
     props: {
       // route object
       item: {
