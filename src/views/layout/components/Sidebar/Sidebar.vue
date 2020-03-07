@@ -45,8 +45,8 @@
     },
     computed: {
       ...mapGetters({
-        routes: 'permission/routes',
-        sidebar: 'app/sidebar'
+        sidebar: 'app/sidebar',
+        routes: 'permission/routes'
       }),
       activeMenu () {
         const route = this.$route
@@ -66,7 +66,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>
