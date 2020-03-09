@@ -1,6 +1,8 @@
 import Mock from 'mockjs'
-import { param2Obj } from '@/utils/tools'
 
+import { param2Obj } from '../src/utils/tools'
+
+require('babel-plugin-require-context-hook/register')()
 // https://webpack.js.org/guides/dependency-management/#requirecontext
 const moduleFiles = require.context('./modules', true, /\.js$/)
 

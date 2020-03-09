@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 /* Layout */
-import Layout from '@/layout'
+import Layout from '_v/layout'
 
 /* Route Modules */
 import userRoute from './modules/user'
@@ -43,7 +43,7 @@ export const constantRoutes = [
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard'),
+      component: () => import('_v/dashboard'),
       name: 'Dashboard',
       meta: {
         title: 'Dashboard',
@@ -58,18 +58,8 @@ export const constantRoutes = [
     hidden: true,
     children: [{
       path: '/redirect/:path(.*)',
-      component: () => import('@/views/redirect')
+      component: () => import('_v/redirect')
     }]
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
-  },
-  {
-    path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true
   }
 ]
 

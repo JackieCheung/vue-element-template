@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '_v/layout'
 
 const userRoute = {
   path: '/user',

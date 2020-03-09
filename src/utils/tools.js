@@ -15,7 +15,7 @@ export function getPageTitle (pageTitle) {
  * @description parse the time to string
  * @param { Object | String | Number } time
  * @param { String } cFormat
- * @return { String | NULL }
+ * @return { String | null }
  */
 export function parseTime (time, cFormat) {
   if (arguments.length === 0) {

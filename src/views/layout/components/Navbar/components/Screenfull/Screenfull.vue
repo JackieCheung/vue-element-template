@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import screenfull from 'src/views/layout/components/Navbar/components/Screenfull/Screenfull'
+  import screenfull from 'screenfull'
 
   export default {
     name: 'Screenfull',
