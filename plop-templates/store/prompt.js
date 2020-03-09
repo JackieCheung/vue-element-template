@@ -7,8 +7,7 @@ module.exports = {
     name: 'name',
     message: 'store name please',
     validate: notEmpty('name')
-  },
-  {
+  }, {
     type: 'checkbox',
     name: 'blocks',
     message: 'Blocks:',
@@ -16,36 +15,30 @@ module.exports = {
       name: 'state',
       value: 'state',
       checked: true
-    },
-    {
+    }, {
       name: 'mutations',
       value: 'mutations',
       checked: true
-    },
-    {
+    }, {
       name: 'actions',
       value: 'actions',
       checked: true
-    }
-    ],
-    validate(value) {
+    }],
+    validate (value) {
       if (!value.includes('state') || !value.includes('mutations')) {
         return 'store require at least state and mutations'
       }
       return true
     }
-  }
-  ],
-  actions(data) {
+  }],
+  actions (data) {
     const name = '{{name}}'
     const { blocks } = data
     const options = ['state', 'mutations']
-    const joinFlag = `,
-  `
+    const joinFlag = `,`
     if (blocks.length === 3) {
       options.push('actions')
     }
-
     const actions = [{
       type: 'add',
       path: `src/store/modules/${name}.js`,

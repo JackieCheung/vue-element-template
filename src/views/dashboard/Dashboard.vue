@@ -1,6 +1,5 @@
 <template>
-  <div class="dashboard-container">
-  </div>
+  <div class="dashboard-container"></div>
 </template>
 
 <script>

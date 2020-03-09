@@ -1,4 +1,4 @@
-/* global getters */
+// global getters
 
 const getters = {}
 

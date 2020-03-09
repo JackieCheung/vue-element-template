@@ -8,24 +8,24 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true,
+    es6: true
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-    "vue/max-attributes-per-line": [2, {
-      "singleline": 10,
-      "multiline": {
-        "max": 1,
-        "allowFirstLine": false
+    'vue/max-attributes-per-line': [2, {
+      'singleline': 10,
+      'multiline': {
+        'max': 1,
+        'allowFirstLine': false
       }
     }],
-    "vue/singleline-html-element-content-newline": "off",
-    "vue/multiline-html-element-content-newline":"off",
-    "vue/name-property-casing": ["error", "PascalCase"],
-    "vue/no-v-html": "off",
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/multiline-html-element-content-newline': 'off',
+    'vue/name-property-casing': ['error', 'PascalCase'],
+    'vue/no-v-html': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
@@ -48,7 +48,7 @@ module.exports = {
     'curly': [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    'eqeqeq': ["error", "always", {"null": "ignore"}],
+    'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
     'generator-star-spacing': [2, {
       'before': true,
       'after': true
@@ -173,7 +173,7 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': [2, 'always'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {
@@ -194,6 +194,36 @@ module.exports = {
     'object-curly-spacing': [2, 'always', {
       objectsInObjects: false
     }],
-    'array-bracket-spacing': [2, 'never']
-  }
+    'array-bracket-spacing': [2, 'never'],
+    'vue/script-indent': ['error', 2, {
+      'baseIndent': 1,
+      'switchCase': 1
+    }],
+    'vue/html-closing-bracket-newline': ['error', {
+      'singleline': 'never',
+      'multiline': 'never'
+    }],
+    'vue/html-self-closing': ['error', {
+      'html': {
+        'void': 'any',
+        'normal': 'any',
+        'component': 'any'
+      },
+      'svg': 'always',
+      'math': 'always'
+    }],
+    'vue/html-closing-bracket-spacing': ['error', {
+      'startTag': 'never',
+      'endTag': 'never',
+      'selfClosingTag': 'always'
+    }]
+  },
+  'overrides': [
+    {
+      'files': ['*.vue'],
+      'rules': {
+        'indent': 'off'
+      }
+    }
+  ]
 }
