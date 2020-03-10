@@ -1,10 +1,10 @@
 const state = {
   sidebar: {
-    opened: window.localStorage.get('sidebarStatus') ? !!+window.localStorage.get('sidebarStatus') : true,
+    opened: window.localStorage.getItem('sidebarStatus') ? !!+window.localStorage.getItem('sidebarStatus') : true,
     withoutAnimation: false
   },
   device: 'desktop',
-  size: window.localStorage.get('size') || 'medium'
+  size: window.localStorage.getItem('size') || 'medium'
 }
 
 const getters = {
@@ -18,13 +18,13 @@ const mutations = {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
     if (state.sidebar.opened) {
-      window.localStorage.set('sidebarStatus', 1)
+      window.localStorage.setItem('sidebarStatus', 1)
     } else {
-      window.localStorage.set('sidebarStatus', 0)
+      window.localStorage.setItem('sidebarStatus', 0)
     }
   },
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
-    window.localStorage.set('sidebarStatus', 0)
+    window.localStorage.setItem('sidebarStatus', 0)
     state.sidebar.opened = false
     state.sidebar.withoutAnimation = withoutAnimation
   },
@@ -33,7 +33,7 @@ const mutations = {
   },
   SET_SIZE: (state, size) => {
     state.size = size
-    window.localStorage.set('size', size)
+    window.localStorage.setItem('size', size)
   }
 }
 

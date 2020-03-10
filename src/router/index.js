@@ -3,8 +3,14 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+import './auth' // permission control
+
 /* Layout */
 import Layout from '_v/layout'
+
+// for multilevel nested routes
+// eslint-disable-next-line no-unused-vars
+import RouterView from '_c/RouterView'
 
 /* Route Modules */
 import userRoute from './modules/user'

@@ -1,11 +1,11 @@
 {
   "name": "vue-element-template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An amazing template of admin management system based on Vue and Element-UI. An out-of-box UI solution for enterprise applications. Newest development stacks of vue. Lots of awesome features.",
   "author": "Jackie <JackieCheung517@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "dev": "vue-cli-service serve --open",
     "build:prod": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
@@ -92,7 +92,6 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.1.0",
-    "babel-plugin-require-context-hook": "^1.0.0",
     "chalk": "^3.0.0",
     "chokidar": "^3.3.1",
     "connect": "^3.7.0",

@@ -2,17 +2,10 @@ import Mock from 'mockjs'
 
 import { param2Obj } from '../src/utils/tools'
 
-require('babel-plugin-require-context-hook/register')()
-// https://webpack.js.org/guides/dependency-management/#requirecontext
-const moduleFiles = require.context('./modules', true, /\.js$/)
-
-// you do not need `import xxx from './modules/xxx'`
-// it will auto require all mock modules from module files
-/* Mock Modules */
-const modules = moduleFiles.keys().reduce((modules, modulePath) => [...modules, moduleFiles(modulePath).default], [])
+import user from './modules/user'
 
 const mocks = [
-  ...modules
+  ...user
 ]
 
 // for front mock

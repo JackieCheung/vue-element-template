@@ -1,11 +1,8 @@
 module.exports = {
   presets: [
-    '@vue/app',
-    '@vue/babel-preset-jsx'
-  ],
-  'env': {
-    'development': {
-      'plugins': ['require-context-hook']
-    }
-  }
+    '@vue/cli-plugin-babel/preset',
+    // equals to '@vue/babel-preset-jsx' refer to babel preset shorthand
+    // detail: https://babeljs.io/docs/en/presets#preset-shorthand
+    '@vue/jsx'
+  ]
 }
