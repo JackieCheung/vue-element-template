@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import './auth' // permission control
-
 /* Layout */
 import Layout from '_v/layout'
 

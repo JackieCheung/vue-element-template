@@ -8,6 +8,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import './router/auth' // permission control
+
 import * as filters from './filters' // global filters
 import './assets/icons' // Svg Icon
 import './vendors/font-awesome-icon' // Font Awesome Icon
