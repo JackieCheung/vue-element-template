@@ -2,10 +2,57 @@ import Mock from 'mockjs'
 
 import { param2Obj } from '../src/utils/tools'
 
-import user from './modules/user'
+/**
+ * note: polyfill for require.context
+ * refer to https://stackoverflow.com/questions/38332094/how-can-i-mock-webpacks-require-context-in-jest/42191018#42191018,
+ *          https://www.jianshu.com/p/fb0de8a9f115
+ */
+// This condition actually should detect if it's an Node environment
+if (typeof require.context === 'undefined') {
+  const fs = require('fs')
+  const path = require('path')
+
+  require.context = (base = '.', scanSubDirectories = false, regularExpression = /\.[jt]s$/) => {
+    const files = {}
+
+    function readDirectory (directory) {
+      fs.readdirSync(directory).forEach((file) => {
+        const fullPath = path.resolve(directory, file)
+
+        if (fs.statSync(fullPath).isDirectory()) {
+          if (scanSubDirectories) readDirectory(fullPath)
+
+          return
+        }
+
+        if (!regularExpression.test(fullPath)) return
+
+        files[fullPath] = true
+      })
+    }
+
+    readDirectory(path.resolve(__dirname, base))
+
+    function Module (file) {
+      // return require(path.resolve(__dirname, base, file))
+      return require(file)
+    }
+
+    Module.keys = () => Object.keys(files)
+
+    return Module
+  }
+}
+
+const moduleFiles = require.context('./modules', true, /\.js$/)
+
+// you do not need `import xxx from './modules/xxx'`
+// it will auto require all mock modules from module files
+/* Mock Modules */
+const modules = moduleFiles.keys().reduce((modules, modulePath) => [...modules, moduleFiles(modulePath).default], [])
 
 const mocks = [
-  ...user
+  ...modules
 ]
 
 // for front mock
