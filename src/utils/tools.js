@@ -333,3 +333,112 @@ export function removeClass (element, className) {
     // element.className = classNames.splice(classNames.indexOf(className), 1).join(' ')
   }
 }
+
+/**
+ * @description get current navigator name
+ * @return { String } current navigator name
+ */
+export const getExplorer = () => {
+  const ua = window.navigator.userAgent
+  const isExplorer = (exp) => {
+    return ua.indexOf(exp) > -1
+  }
+  if (isExplorer('MSIE')) {
+    return 'IE'
+  } else if (isExplorer('Firefox')) {
+    return 'Firefox'
+  } else if (isExplorer('Chrome')) {
+    return 'Chrome'
+  } else if (isExplorer('Opera')) {
+    return 'Opera'
+  } else if (isExplorer('Safari')) return 'Safari'
+}
+
+/**
+ * @description bind event to html element
+ * @param { HTMLElement } element
+ * @param { String } event
+ * @param { Function } handler
+ */
+export const on = (function () {
+  if (document.addEventListener) {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.addEventListener(event, handler, false)
+      }
+    }
+  } else {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.attachEvent('on' + event, handler)
+      }
+    }
+  }
+})()
+
+/**
+ * @description unbind event to html element
+ * @param { HTMLElement } element
+ * @param { String } event
+ * @param { Function } handler
+ */
+export const off = (function () {
+  if (document.removeEventListener) {
+    return function (element, event, handler) {
+      if (element && event) {
+        element.removeEventListener(event, handler, false)
+      }
+    }
+  } else {
+    return function (element, event, handler) {
+      if (element && event) {
+        element.detachEvent('on' + event, handler)
+      }
+    }
+  }
+})()
+
+/**
+ * @description transform DataURL to Blob Object
+ * @param { String } dataUrl
+ * @return { Blob } Blob Object
+ */
+export const dataURLToBlob = dataUrl => {
+  const arr = dataUrl.split(',')
+  const mime = arr[0].match(/:(.*?);/)[1]
+  const bstr = atob(arr[1])
+  let n = bstr.length
+  const u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return new Blob([u8arr], { type: mime })
+}
+
+/**
+ * @description transform Image Object to Base64 String
+ * @param { HTMLImageElement } image, Image Object
+ * @return { String } Base64 String
+ */
+export const getBase64FromImage = image => {
+  const canvas = document.createElement('canvas')
+  canvas.width = image.width
+  canvas.height = image.height
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(image, 0, 0, image.width, image.height)
+  const ext = image.src.substring(image.src.lastIndexOf('.') + 1).toLowerCase()
+  return canvas.toDataURL('image/' + ext)
+}
+
+/**
+ * @description write async await without try-catch blocks
+ * @param { Function } asyncFunc, asynchronous function
+ * @return { Array } callback result of asynchronous function
+ */
+export const asyncAction = asyncFunc => {
+  return asyncFunc.then(res => {
+    return [null, res]
+  }).catch(err => {
+    return [err, null]
+  })
+}
