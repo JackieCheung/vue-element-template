@@ -3,7 +3,7 @@
 /**
  * @description validate whether is an valid url or not
  * @param { String } url
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function validURL (url) {
   const reg = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
@@ -13,7 +13,7 @@ export function validURL (url) {
 /**
  * @description validate whether the letters of the string are all lower-case or not
  * @param { String } str
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function validLowerCase (str) {
   const reg = /^[a-z]+$/
@@ -23,7 +23,7 @@ export function validLowerCase (str) {
 /**
  * @description validate whether the letters of the string are all upper-case or not
  * @param { String } str
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function validUpperCase (str) {
   const reg = /^[A-Z]+$/
@@ -33,7 +33,7 @@ export function validUpperCase (str) {
 /**
  * @description validate whether the letters of the string are all alphabet or not
  * @param { String } str
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function validAlphabets (str) {
   const reg = /^[A-Za-z]+$/
@@ -43,7 +43,7 @@ export function validAlphabets (str) {
 /**
  * @description validate whether is an valid email address or not
  * @param { String } email
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function validEmail (email) {
   const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -51,9 +51,19 @@ export function validEmail (email) {
 }
 
 /**
+ * @description validate whether is an valid phone number or not
+ * @param {String} phone
+ * @return { Boolean }
+ */
+export function validPhone (phone) {
+  const reg = /^[1][3-9][0-9]{9}$/
+  return reg.test(phone)
+}
+
+/**
  * @description determine whether is a string or not
  * @param { String } str
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function isString (str) {
   return typeof str === 'string' || str instanceof String
@@ -71,7 +81,7 @@ export function isExternal (path) {
 /**
  * @description determine whether is an array or not
  * @param { Array } arg
- * @returns { Boolean }
+ * @return { Boolean }
  */
 export function isArray (arg) {
   if (typeof Array.isArray === 'undefined') {

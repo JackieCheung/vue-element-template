@@ -351,7 +351,9 @@ export const getExplorer = () => {
     return 'Chrome'
   } else if (isExplorer('Opera')) {
     return 'Opera'
-  } else if (isExplorer('Safari')) return 'Safari'
+  } else if (isExplorer('Safari')) {
+    return 'Safari'
+  }
 }
 
 /**

@@ -1,5 +1,7 @@
 import Vue from 'vue'
+
 import Element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 import '@/assets/styles/index.scss' // global css
