@@ -358,7 +358,7 @@ export const getExplorer = () => {
  * @description bind event to html element
  * @param { HTMLElement } element
  * @param { String } event
- * @param { Function } handler
+ * @param { EventListener } handler
  */
 export const on = (function () {
   if (document.addEventListener) {
@@ -380,7 +380,7 @@ export const on = (function () {
  * @description unbind event to html element
  * @param { HTMLElement } element
  * @param { String } event
- * @param { Function } handler
+ * @param { EventListener } handler
  */
 export const off = (function () {
   if (document.removeEventListener) {
