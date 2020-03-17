@@ -1,6 +1,6 @@
 <template>
   <main class="app-main">
-    <el-scrollbar wrap-style="positon: relative; height: 100%;">
+    <el-scrollbar class="el-scrollbar-container" wrap-class="el-scrollbar__wrap-vertical">
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
           <router-view :key="key" />

@@ -3,3 +3,44 @@
 @import './mixins.scss';
 @import './transition.scss';
 @import './sidebar.scss';
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.el-scrollbar-container {
+  position: relative;
+  height: 100%;
+}
+
+.el-scrollbar__wrap {
+  &-vertical {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &-horizontal {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
