@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-import { param2Obj } from '../src/utils/tools'
+import { param2Obj } from './tools'
 
 /**
  * note: polyfill for require.context

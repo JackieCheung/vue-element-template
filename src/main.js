@@ -39,6 +39,9 @@ Object.keys(filters).forEach(key => {
 // register an event hub
 Vue.prototype.$eventHub = Vue.prototype.$eventHub || new Vue()
 
+// register console.log
+Vue.prototype.$log = Vue.prototype.$log || console.log
+
 Vue.config.productionTip = false
 
 new Vue({
