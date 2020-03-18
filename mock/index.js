@@ -73,19 +73,19 @@ export function mockXHR () {
     this.proxy_send(...arguments)
   }
 
-  function XHR2ExpressReqWrap (respond) {
+  function XHR2ExpressReqWrap (response) {
     return function (options) {
       let result = null
-      if (respond instanceof Function) {
+      if (response instanceof Function) {
         const { body, type, url } = options
         // https://expressjs.com/en/4x/api.html#req
-        result = respond({
+        result = response({
           method: type,
           body: JSON.parse(body),
           query: param2Obj(url)
         })
       } else {
-        result = respond
+        result = response
       }
       return Mock.mock(result)
     }

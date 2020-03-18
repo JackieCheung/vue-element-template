@@ -1,10 +1,13 @@
 const chokidar = require('chokidar')
 const bodyParser = require('body-parser')
+const multer = require('multer')
 const chalk = require('chalk')
 const path = require('path')
 const Mock = require('mockjs')
 
 const mockDir = path.join(process.cwd(), 'mock')
+
+const upload = multer()
 
 function registerRoutes (app) {
   let mockLastIndex
@@ -13,7 +16,11 @@ function registerRoutes (app) {
     return responseFake(route.url, route.type, route.response)
   })
   for (const mock of mocksForServer) {
-    app[mock.type](mock.url, mock.response)
+    // parse app.body
+    // https://expressjs.com/en/4x/api.html#req.body
+    app[mock.type](mock.url, bodyParser.json(), bodyParser.urlencoded({
+      extended: true
+    }), upload.any(), mock.response)
     mockLastIndex = app._router.stack.length
   }
   const mockRoutesLength = Object.keys(mocksForServer).length
@@ -47,12 +54,12 @@ module.exports = app => {
   // es6 polyfill
   require('@babel/register')
 
-  // parse app.body
-  // https://expressjs.com/en/4x/api.html#req.body
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }))
+  // // parse app.body
+  // // https://expressjs.com/en/4x/api.html#req.body
+  // app.use(bodyParser.json()) // for parsing application/json
+  // app.use(bodyParser.urlencoded({
+  //   extended: true
+  // })) // for parsing application/x-www-form-urlencoded
 
   const mockRoutes = registerRoutes(app)
   let mockRoutesLength = mockRoutes.mockRoutesLength
