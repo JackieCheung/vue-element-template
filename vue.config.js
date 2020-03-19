@@ -110,7 +110,8 @@ module.exports = {
             }])
             .end()
           config
-            .optimization.splitChunks({
+            .optimization
+            .splitChunks({
               chunks: 'all',
               cacheGroups: {
                 libs: {

@@ -7,6 +7,7 @@ const Mock = require('mockjs')
 
 const mockDir = path.join(process.cwd(), 'mock')
 
+// https://github.com/expressjs/multer/blob/master/README.md
 const upload = multer()
 
 function registerRoutes (app) {
