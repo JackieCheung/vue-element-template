@@ -1,3 +1,5 @@
+import { getFinalStyle } from './tools'
+
 /* collection of validations */
 
 /**
@@ -88,4 +90,34 @@ export function isArray (arg) {
     return Object.prototype.toString.call(arg) === '[object Array]'
   }
   return Array.isArray(arg)
+}
+
+/**
+ * @description determine whether the current device type is Android
+ * @return { Boolean }
+ */
+export function isAndroidDevice () {
+  return window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Adr') > -1
+}
+
+/**
+ * @description determine whether the current device type is IOS
+ * @return { Boolean }
+ */
+export function isIOSDevice () {
+  return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+}
+
+/**
+ * @description determine whether the scroll bar inside the element is scrolled to the bottom of the element, true if scrollTop + clientHeight === scrollHeight
+ * @param { HTMLElement } element
+ * @return { Boolean }
+ * @author Jackie
+ * @date 2020-03-20 08:25
+ */
+export function isScrolledToBottom (element) {
+  const scrollTop = element && element.scrollTop || 0
+  const clientHeight = element && element.clientHeight || 0
+  const scrollHeight = element && element.scrollHeight || 0
+  return getFinalStyle(element, 'overflow-y') === 'hidden' || scrollHeight <= clientHeight || scrollTop + clientHeight === scrollHeight
 }

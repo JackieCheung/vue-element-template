@@ -444,3 +444,53 @@ export const asyncAction = asyncFunc => {
     return [err, null]
   })
 }
+
+/**
+ * @description transform kebab-case to camelCase
+ * @param { String } str
+ * @return { String }
+ * @author Jackie
+ * @date 2020-03-20 09:34
+ */
+export const getCamelCase = (function () {
+  const cache = {}
+  return function (str) {
+    if (!cache[str]) {
+      cache[str] = str.replace(/-([a-z])/g, function (match, i) {
+        return i.toUpperCase()
+      })
+    }
+    return cache[str]
+  }
+})()
+
+/**
+ * @description transform camelCase to kebab-case
+ * @param { String } str
+ * @return { String }
+ * @author Jackie
+ * @date 2020-03-20 09:40
+ */
+export const getKebabCase = (function () {
+  const cache = {}
+  return function (str) {
+    if (!cache[str]) {
+      cache[str] = str.replace(/[A-Z]/g, function (i) {
+        return '-' + i.toLowerCase()
+      })
+    }
+    return cache[str]
+  }
+})()
+
+/**
+ * @description get the final CSS property value of the element
+ * @param { HTMLElement } element
+ * @param { String } property
+ * @return { * }
+ * @author Jackie
+ * @date 2020-03-20 09:04
+ */
+export function getFinalStyle (element, property) {
+  return window.getComputedStyle ? getComputedStyle(element).getPropertyValue(getKebabCase(property)) : element.currentStyle.getAttribute(getCamelCase(property))
+}
