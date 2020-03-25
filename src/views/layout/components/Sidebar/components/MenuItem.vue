@@ -20,18 +20,20 @@
       const { iconType, icon, title } = context.props
       const vnodes = []
 
-      switch (iconType) {
-        case 'font-awesome':
-          vnodes.push(<font-awesome-icon icon={icon} />)
-          break
-        case 'svg':
-          vnodes.push(<svg-icon icon-class={icon} />)
-          break
-        case 'element':
-          vnodes.push(<i className={icon} />)
-          break
-        default:
-          break
+      if (icon) {
+        switch (iconType) {
+          case 'font-awesome':
+            vnodes.push(<font-awesome-icon icon={icon} class='icon' />)
+            break
+          case 'svg':
+            vnodes.push(<svg-icon icon-class={icon} class='icon' />)
+            break
+          case 'element':
+            vnodes.push(<i class={`${icon} icon`} />)
+            break
+          default:
+            break
+        }
       }
 
       if (title) {
@@ -41,3 +43,11 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+  }
+</style>

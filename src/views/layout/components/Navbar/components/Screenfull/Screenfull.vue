@@ -1,5 +1,7 @@
 <template>
-  <svg-icon :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="handleScreenFull"></svg-icon>
+  <div>
+    <svg-icon :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="handleScreenFull"></svg-icon>
+  </div>
 </template>
 
 <script>
@@ -20,7 +22,7 @@
     },
     methods: {
       handleScreenFull () {
-        if (!screenfull.enabled) {
+        if (!screenfull.isEnabled) {
           this.$message({
             message: 'Sorry, your browser does not support full screen!',
             type: 'warning'
@@ -33,12 +35,12 @@
         this.isFullscreen = screenfull.isFullscreen
       },
       init () {
-        if (screenfull.enabled) {
+        if (screenfull.isEnabled) {
           screenfull.on('change', this.change)
         }
       },
       destroy () {
-        if (screenfull.enabled) {
+        if (screenfull.isEnabled) {
           screenfull.off('change', this.change)
         }
       }

@@ -27,7 +27,7 @@
     },
     mixins: [ResizeMixin],
     computed: {
-      ...mapGetters('app/sidebar', [
+      ...mapGetters('app', [
         'sidebar',
         'device'
       ]),

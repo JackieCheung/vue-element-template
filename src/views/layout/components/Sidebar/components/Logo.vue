@@ -1,9 +1,9 @@
 <template>
   <div class="sidebar-logo-container" :class="{'collapse': collapse}">
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" :key="collapse ? 'collapse' : 'expand'" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" alt="Vue-Element-Template-Logo">
-        <h1 v-if="collapse || (!collapse && !logo)" class="sidebar-title">{{ title }} </h1>
+      <router-link :key="collapse ? 'collapse' : 'expand'" class="sidebar-logo-link" to="/">
+        <img v-if="logo" :src="logo" class="sidebar-logo" />
+        <h1 v-if="!collapse || (collapse && !logo)" class="sidebar-title">{{ title }} </h1>
       </router-link>
     </transition>
   </div>

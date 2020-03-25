@@ -47,10 +47,10 @@
     },
     computed: {
       visitedViews () {
-        return this.$store.getters.routerView.visitedViews
+        return this.$store.getters['routerView/visitedViews']
       },
       routes () {
-        return this.$store.getters.permission.routes
+        return this.$store.getters['permission/routes']
       }
     },
     watch: {
@@ -103,14 +103,14 @@
         for (const tag of affixTags) {
           // must have tag name
           if (tag.name) {
-            this.$store.dispatch('tagsView/addVisitedView', tag)
+            this.$store.dispatch('routerView/addVisitedView', tag)
           }
         }
       },
       addTags () {
         const { name } = this.$route
         if (name) {
-          this.$store.dispatch('tagsView/addView', this.$route)
+          this.$store.dispatch('routerView/addView', this.$route)
         }
       },
       moveToCurrentTag () {
@@ -121,7 +121,7 @@
               this.$refs.scrollPane.moveToTarget(tag)
               // when query is different then update
               if (tag.to.fullPath !== this.$route.fullPath) {
-                this.$store.dispatch('tagsView/updateVisitedView', this.$route)
+                this.$store.dispatch('routerView/updateVisitedView', this.$route)
               }
               break
             }
@@ -129,7 +129,7 @@
         })
       },
       refreshSelectedTag (view) {
-        this.$store.dispatch('tagsView/delCachedView', view).then(() => {
+        this.$store.dispatch('routerView/delCachedView', view).then(() => {
           const { fullPath } = view
           this.$nextTick(() => {
             this.$router.replace({
@@ -139,7 +139,7 @@
         })
       },
       closeSelectedTag (view) {
-        this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+        this.$store.dispatch('routerView/delView', view).then(({ visitedViews }) => {
           if (this.isActive(view)) {
             this.toLastView(visitedViews, view)
           }
@@ -147,12 +147,12 @@
       },
       closeOtherTags () {
         this.$router.push(this.selectedTag)
-        this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
+        this.$store.dispatch('routerView/delOthersViews', this.selectedTag).then(() => {
           this.moveToCurrentTag()
         })
       },
       closeAllTags (view) {
-        this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
+        this.$store.dispatch('routerView/delAllViews').then(({ visitedViews }) => {
           if (this.affixTags.some(tag => tag.path === view.path)) {
             return
           }
