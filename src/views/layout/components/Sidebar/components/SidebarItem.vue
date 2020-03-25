@@ -38,8 +38,9 @@
         return path.resolve(this.basePath, routePath)
       }
     },
-    // eslint-disable-next-line vue/require-render-return
     render (h) {
+      let sideBarItem = null
+      let appLink = null
       if (!this.item.hidden) {
         const showingChildren = (this.item.children || []).filter(item => !item.hidden)
         let onlyOneChild = null
@@ -54,8 +55,6 @@
             noShowingChildren: true
           }
         }
-        let sideBarItem = null
-        let appLink = null
         if (onlyOneChild && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !this.item.alwaysShow) {
           if (onlyOneChild.meta) {
             appLink = <app-link to={this.resolvePath(onlyOneChild.path)}>
@@ -85,13 +84,13 @@
             }
           </el-submenu>
         }
-        return (
-          <div>
-            {appLink}
-            {sideBarItem}
-          </div>
-        )
       }
+      return (
+        <div>
+          {appLink}
+          {sideBarItem}
+        </div>
+      )
     }
   }
 </script>
