@@ -12,6 +12,7 @@ import RouterView from '_c/RouterView'
 
 /* Route Modules */
 import userRoute from './modules/user'
+import errorPageRoute from './modules/error-page'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -65,11 +66,7 @@ export const constantRoutes = [
       component: () => import('_v/redirect')
     }]
   },
-  {
-    path: '/404',
-    component: () => import('_v/error-pages/404'),
-    hidden: true
-  }
+  ...errorPageRoute
 ]
 
 /**

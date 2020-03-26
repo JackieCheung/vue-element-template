@@ -19,7 +19,7 @@
           You might have mistyped the address or the page might have been moved. Please check the URL you entered is
           correct and try again, or click the button below to return to the homepage.
         </p>
-        <a href="" class="bullshit__return-home">Back to home</a>
+        <a href="/" class="bullshit__return-home">Back to home</a>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
     name: 'Page404',
     computed: {
       message () {
-        return 'Page Not Found！'
+        return 'Page Not Found....'
       }
     }
   }
