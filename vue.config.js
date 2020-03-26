@@ -5,6 +5,8 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+
 const name = process.env.VUE_APP_TITLE || 'Vue Element Template' // page title
 
 // If your port is set to 80,
@@ -138,5 +140,10 @@ module.exports = {
           config.optimization.runtimeChunk('single')
         }
       )
+    // 生产环境才开启，不然开发时lodash函数不起作用，也不报错
+    if (process.env.NODE_ENV === 'production') {
+      config.plugin('lodashModuleReplacement')
+        .use(new LodashModuleReplacementPlugin())
+    }
   }
 }

@@ -31,16 +31,30 @@ body {
 .el-scrollbar-container {
   position: relative;
   height: 100%;
+
+  &.vertical {
+    .el-scrollbar__bar.is-horizontal {
+      display: none;
+    }
+  }
+
+  &.horizontal {
+    .el-scrollbar__bar.is-vertical {
+      display: none;
+    }
+  }
 }
 
 .el-scrollbar__wrap {
   &-vertical {
     overflow-x: hidden;
     overflow-y: auto;
+    margin-bottom: 0 !important;
   }
 
   &-horizontal {
     overflow-x: auto;
     overflow-y: hidden;
+    margin-right: 0 !important;
   }
 }

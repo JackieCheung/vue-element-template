@@ -1,11 +1,13 @@
 <template>
   <main class="app-main">
-    <el-scrollbar class="el-scrollbar-container" wrap-class="el-scrollbar__wrap-vertical">
-      <transition name="fade-transform" mode="out-in">
-        <keep-alive :include="cachedViews">
-          <router-view :key="key" />
-        </keep-alive>
-      </transition>
+    <el-scrollbar class="el-scrollbar-container vertical" wrap-class="el-scrollbar__wrap-vertical">
+      <div class="app-main__content">
+        <transition name="fade-transform" mode="out-in">
+          <keep-alive :include="cachedViews">
+            <router-view :key="key" />
+          </keep-alive>
+        </transition>
+      </div>
     </el-scrollbar>
   </main>
 </template>
@@ -31,6 +33,10 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+
+    &__content {
+      padding: 24px;
+    }
   }
 
   .fixed-header + .app-main {
