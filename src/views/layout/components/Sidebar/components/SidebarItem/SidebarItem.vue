@@ -56,7 +56,6 @@
           }
         }
         if (onlyOneChild && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !this.item.alwaysShow) {
-          // todo debug
           if (onlyOneChild.meta) {
             appLink = <app-link to={this.resolvePath(onlyOneChild.path)}>
               <el-menu-item index={this.resolvePath(onlyOneChild.path)}
