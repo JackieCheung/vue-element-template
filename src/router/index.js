@@ -64,6 +64,11 @@ export const constantRoutes = [
       path: '/redirect/:path(.*)',
       component: () => import('_v/redirect')
     }]
+  },
+  {
+    path: '/404',
+    component: () => import('_v/error-pages/404'),
+    hidden: true
   }
 ]
 

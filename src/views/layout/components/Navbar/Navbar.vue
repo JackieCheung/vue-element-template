@@ -43,7 +43,7 @@
         'device': 'app/device'
       }),
       avatar () {
-        return this.$store.getters['user/avatar'] || require('@/assets/logo.png')
+        return this.$store.getters['user/avatar'] || require('@/assets/images/logo.png')
       }
     },
     methods: {

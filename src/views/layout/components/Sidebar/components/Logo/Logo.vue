@@ -21,7 +21,7 @@
     data () {
       return {
         title: 'Vue Element Template',
-        logo: require('@/assets/logo.png')
+        logo: require('@/assets/images/logo.png')
       }
     }
   }
