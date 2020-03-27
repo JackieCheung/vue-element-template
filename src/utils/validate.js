@@ -119,5 +119,5 @@ export function isScrolledToBottom (element) {
   const scrollTop = element && element.scrollTop || 0
   const clientHeight = element && element.clientHeight || 0
   const scrollHeight = element && element.scrollHeight || 0
-  return getFinalStyle(element, 'overflow-y') === 'hidden' || scrollHeight <= clientHeight || scrollTop + clientHeight === scrollHeight
+  return getFinalStyle(element, 'overflow-y') === 'hidden' || scrollHeight <= clientHeight || Math.ceil(scrollTop) + clientHeight >= scrollHeight
 }

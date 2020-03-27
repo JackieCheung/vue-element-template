@@ -200,9 +200,9 @@
 
 <style lang="scss" scoped>
   .tags-view-container {
-    height: 34px;
+    height: 40px;
     width: 100%;
-    background: #fff;
+    background: #fbfdff;
     border-bottom: 1px solid #d8dce5;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
 
@@ -211,15 +211,16 @@
         display: inline-block;
         position: relative;
         cursor: pointer;
-        height: 26px;
-        line-height: 26px;
+        margin: 4px;
+        padding: 0 12px;
+        height: 32px;
+        line-height: 30px;
         border: 1px solid #d8dce5;
-        color: #495060;
-        background: #fff;
-        padding: 0 8px;
+        border-radius: 3px;
         font-size: 12px;
-        margin-left: 5px;
-        margin-top: 4px;
+        color: #515a6e;
+        background: #fff;
+        transition: all .3s cubic-bezier(.645, .045, .355, 1);
 
         &:first-of-type {
           margin-left: 15px;
@@ -229,42 +230,47 @@
           margin-right: 15px;
         }
 
-        &.active {
-          background-color: #42b983;
-          color: #fff;
-          border-color: #42b983;
+        &::before {
+          content: "";
+          background: #e8eaec;
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          position: relative;
+          top: 1px;
+          margin-right: 5px;
+          transition: all .3s cubic-bezier(.645, .045, .355, 1);
+        }
+
+        &.active, &:hover {
+          color: #2d8cf0;
 
           &::before {
-            content: '';
-            background: #fff;
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            position: relative;
-            margin-right: 2px;
+            background: #2d8cf0;
+          }
+
+          /deep/ .el-icon-close {
+            &:hover {
+              color: #fff;
+              background-color: #409eff;
+            }
           }
         }
 
         /deep/ .el-icon-close {
+          position: relative;
+          top: -1px;
+          right: -5px;
           width: 16px;
           height: 16px;
-          vertical-align: 2px;
+          line-height: 16px;
+          vertical-align: middle;
           border-radius: 50%;
           text-align: center;
           transition: all .3s cubic-bezier(.645, .045, .355, 1);
-          transform-origin: 100% 50%;
-
-          &:before {
-            transform: scale(.6);
-            display: inline-block;
-            vertical-align: -3px;
-          }
-
-          &:hover {
-            background-color: #b4bccc;
-            color: #fff;
-          }
+          font-size: 12px;
+          cursor: pointer;
         }
       }
     }

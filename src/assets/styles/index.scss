@@ -48,13 +48,11 @@ body {
 .el-scrollbar__wrap {
   &-vertical {
     overflow-x: hidden;
-    overflow-y: auto;
-    margin-bottom: 0 !important;
+    overflow-y: scroll;
   }
 
   &-horizontal {
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
-    margin-right: 0 !important;
   }
 }

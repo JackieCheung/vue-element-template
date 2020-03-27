@@ -28,19 +28,21 @@
 
 <style lang="scss" scoped>
   .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - 84px);
+    /* 90 = navbar + tags-view = 50 + 40 */
+    height: calc(100vh - 90px);
+    min-height: 100vh;
     width: 100%;
     position: relative;
     overflow: hidden;
+    background-color: #f5f7fa;
 
     &__content {
-      padding: 24px;
+      margin: 24px;
     }
   }
 
   .fixed-header + .app-main {
-    padding-top: 84px;
+    padding-top: 90px;
   }
 </style>
 

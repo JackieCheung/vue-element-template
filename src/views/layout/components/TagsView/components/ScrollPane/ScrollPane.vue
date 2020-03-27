@@ -73,12 +73,13 @@
     width: 100%;
 
     /deep/ {
-      .el-scrollbar__bar {
-        bottom: 0;
-      }
+      /*.el-scrollbar__bar {*/
+      /*  bottom: 0;*/
+      /*}*/
 
       .el-scrollbar__wrap {
-        height: 49px;
+        height: 57px;
+        // height: 58px;
       }
     }
   }
