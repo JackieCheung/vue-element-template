@@ -37,7 +37,7 @@
     background-color: #f5f7fa;
 
     &__content {
-      margin: 24px;
+      padding: 24px;
     }
   }
 
