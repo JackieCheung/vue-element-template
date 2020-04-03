@@ -159,3 +159,20 @@ export const isEmpty = (val) => {
 
   return false
 }
+
+/**
+ * @description validate whether is an valid image or not
+ * @param { String } url
+ * @returns { Promise }
+ * @author Jackie
+ * @date 2020-04-03 08:23
+ */
+export const validImage = (url) => {
+  return new Promise(resolve => {
+    const image = new Image()
+    image.onload = () => resolve(image.width > 0 && image.height > 0)
+    image.onerror = () => resolve(false)
+    image.crossOrigin = 'anonymous'
+    image.src = url
+  })
+}
