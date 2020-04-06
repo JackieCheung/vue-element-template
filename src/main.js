@@ -22,6 +22,10 @@ import './vendors/view-ui' // View UI
 
 Vue.use(Element)
 
+import authImage from '@/directives/auth-image'
+
+Vue.use(authImage)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJS for mock api

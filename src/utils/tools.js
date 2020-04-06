@@ -501,3 +501,39 @@ export const getKebabCase = (function () {
 export function getFinalStyle (element, property) {
   return window.getComputedStyle ? getComputedStyle(element).getPropertyValue(getKebabCase(property)) : element.currentStyle.getAttribute(getCamelCase(property))
 }
+
+/**
+ * @description get intersection of two arrays
+ * @param { Array } arr1
+ * @param { Array } arr2
+ * @returns { Array } intersection of two arrays
+ * @author Jackie
+ * @date 2020-04-05 02:03
+ */
+export const getArrayIntersection = (arr1, arr2) => {
+  return arr1.filter(v => arr2.includes(v))
+}
+
+/**
+ * @description get union of two arrays
+ * @param { Array } arr1
+ * @param { Array } arr2
+ * @returns { Array } union of two arrays
+ * @author Jackie
+ * @date 2020-04-05 02:10
+ */
+export const getArrayUnion = (arr1, arr2) => {
+  return [...arr1, ...arr2.filter(v => !arr1.includes(v))]
+}
+
+/**
+ * @description get difference of two arrays
+ * @param { Array } arr1
+ * @param { Array } arr2
+ * @returns { Array } get difference of two arrays
+ * @author Jackie
+ * @date 2020-04-05 02:13
+ */
+export const getArrayDifference = (arr1, arr2) => {
+  return [...arr1, ...arr2].filter(v => arr1.includes(v) && !arr2.includes(v))
+}
