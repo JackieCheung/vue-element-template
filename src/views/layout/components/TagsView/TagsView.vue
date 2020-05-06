@@ -1,6 +1,6 @@
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane ref="scrollPane" class="tags-view-panel">
+    <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link
         v-for="tag in visitedViews"
         ref="tag"
@@ -193,6 +193,9 @@
       },
       closeMenu () {
         this.contextMenu.visible = false
+      },
+      handleScroll () {
+        this.closeMenu()
       }
     }
   }
