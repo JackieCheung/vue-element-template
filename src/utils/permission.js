@@ -3,7 +3,7 @@ import store from '@/store'
 /**
  * @description check whether has permission or not
  * @param { Array } value: permissible roles
- * @return { Boolean } has permission or not
+ * @returns { Boolean } has permission or not
  */
 export function hasPermission (value) {
   if (value && value instanceof Array && value.length > 0) {

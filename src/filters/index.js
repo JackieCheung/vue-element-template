@@ -5,7 +5,7 @@ export { parseTime, formatTime } from '@/utils/tools'
  * @description show plural label if time is plural number
  * @param { Number } time
  * @param { String } label
- * @return { String }
+ * @returns { String }
  */
 function pluralize (time, label) {
   if (time === 1) {
@@ -17,7 +17,7 @@ function pluralize (time, label) {
 /**
  * @description compute how long the specified time was before current time
  * @param { Number } time
- * @return { String }
+ * @returns { String }
  */
 export function timeAgo (time) {
   const between = Date.now() / 1000 - Number(time)
@@ -34,7 +34,7 @@ export function timeAgo (time) {
  * @description format number, like 10000 => 10k
  * @param { Number } num
  * @param { Number } digits
- * @return { String }
+ * @returns { String }
  */
 export function numberFormatter (num, digits) {
   const si = [{
@@ -67,7 +67,7 @@ export function numberFormatter (num, digits) {
 /**
  * @description format number, like 10000 => "10,000"
  * @param { Number } num
- * @return { String }
+ * @returns { String }
  */
 export function toThousandFilter (num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
@@ -76,7 +76,7 @@ export function toThousandFilter (num) {
 /**
  * @description uppercase first character
  * @param { String } string
- * @return { String }
+ * @returns { String }
  */
 export function uppercaseFirstChar (string) {
   return string.charAt(0).toUpperCase() + string.slice(1)

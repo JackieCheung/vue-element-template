@@ -5,7 +5,7 @@ import { getFinalStyle } from './tools'
 /**
  * @description validate whether is an valid url or not
  * @param { String } url
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function validURL (url) {
   const reg = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
@@ -15,7 +15,7 @@ export function validURL (url) {
 /**
  * @description validate whether the letters of the string are all lower-case or not
  * @param { String } str
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function validLowerCase (str) {
   const reg = /^[a-z]+$/
@@ -25,7 +25,7 @@ export function validLowerCase (str) {
 /**
  * @description validate whether the letters of the string are all upper-case or not
  * @param { String } str
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function validUpperCase (str) {
   const reg = /^[A-Z]+$/
@@ -35,7 +35,7 @@ export function validUpperCase (str) {
 /**
  * @description validate whether the letters of the string are all alphabet or not
  * @param { String } str
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function validAlphabets (str) {
   const reg = /^[A-Za-z]+$/
@@ -45,7 +45,7 @@ export function validAlphabets (str) {
 /**
  * @description validate whether is an valid email address or not
  * @param { String } email
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function validEmail (email) {
   const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -55,7 +55,7 @@ export function validEmail (email) {
 /**
  * @description validate whether is an valid phone number or not
  * @param {String} phone
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function validPhone (phone) {
   const reg = /^[1][3-9][0-9]{9}$/
@@ -65,7 +65,7 @@ export function validPhone (phone) {
 /**
  * @description determine whether is a string or not
  * @param { String } str
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function isString (str) {
   return typeof str === 'string' || str instanceof String
@@ -74,7 +74,7 @@ export function isString (str) {
 /**
  * @description determine whether is an external path or not
  * @param { String } path
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function isExternal (path) {
   return /^(https?:|mailto:|tel:)/.test(path)
@@ -83,7 +83,7 @@ export function isExternal (path) {
 /**
  * @description determine whether is an array or not
  * @param { Array } arg
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function isArray (arg) {
   if (typeof Array.isArray === 'undefined') {
@@ -94,24 +94,40 @@ export function isArray (arg) {
 
 /**
  * @description determine whether the current device type is Android
- * @return { Boolean }
+ * @returns { Boolean }
  */
-export function isAndroidDevice () {
+export const isAndroidDevice = (() => {
   return window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Adr') > -1
-}
+})()
 
 /**
  * @description determine whether the current device type is IOS
- * @return { Boolean }
+ * @returns { Boolean }
  */
-export function isIOSDevice () {
+export const isIOSDevice = (() => {
   return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
-}
+})()
+
+/**
+ * @description determine whether the browser environment of the current client is a WeChat browser
+ * @returns { Boolean }
+ */
+export const isWechatBrowser = (() => {
+  return window.navigator.userAgent.toLowerCase().includes('micromessenger')
+})()
+
+/**
+ * @description determine whether the browser environment of the current client is Alipay browser
+ * @returns { Boolean }
+ */
+export const isAlipayBrowser = (() => {
+  return window.navigator.userAgent.toLowerCase().includes('alipayclient')
+})()
 
 /**
  * @description determine whether the scroll bar inside the element is scrolled to the bottom of the element, true if scrollTop + clientHeight === scrollHeight
  * @param { HTMLElement } element
- * @return { Boolean }
+ * @returns { Boolean }
  * @author Jackie
  * @date 2020-03-20 08:25
  */
@@ -125,7 +141,7 @@ export function isScrolledToBottom (element) {
 /**
  * @description determine whether the val is empty
  * @param { * } val
- * @return { Boolean }
+ * @returns { Boolean }
  * @author Jackie
  * @date 2020-04-01 20:30
  */

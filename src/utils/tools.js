@@ -1,7 +1,7 @@
 /**
  * @description get page title
  * @param { String } pageTitle
- * @return { String } page title
+ * @returns { String } page title
  */
 export function getPageTitle (pageTitle) {
   const title = process.env.VUE_APP_TITLE || 'Vue Element Template'
@@ -15,7 +15,7 @@ export function getPageTitle (pageTitle) {
  * @description parse the time to string
  * @param { Object | String | Number } time
  * @param { String } cFormat
- * @return { String | null }
+ * @returns { String | null }
  */
 export function parseTime (time, cFormat) {
   if (arguments.length === 0 || !time) {
@@ -62,7 +62,7 @@ export function parseTime (time, cFormat) {
  * @description format time
  * @param { Number } time
  * @param { String } option
- * @return { String }
+ * @returns { String }
  */
 export function formatTime (time, option) {
   if (('' + time).length === 10) {
@@ -104,10 +104,10 @@ export function formatTime (time, option) {
 /**
  * @description get query object of the url
  * @param { String } url
- * @return { Object }
+ * @returns { Object }
  */
 export function getQueryObject (url) {
-  url = url == null ? window.location.href : url
+  url = url || window.location.href
   const search = url.substring(url.lastIndexOf('?') + 1)
   const obj = {}
   const reg = /([^?&=]+)=([^?&=]*)/g
@@ -124,7 +124,7 @@ export function getQueryObject (url) {
 /**
  * @description get the byte length of an utf8 string
  * @param { String } str
- * @return { number }
+ * @returns { number }
  */
 export function byteLength (str) {
   let s = str.length
@@ -140,7 +140,7 @@ export function byteLength (str) {
 /**
  * @description parse json object to query string
  * @param { Object } json
- * @return { String }
+ * @returns { String }
  */
 export function param (json) {
   if (!json) return ''
@@ -153,7 +153,7 @@ export function param (json) {
 /**
  * @description parse query string of the url to json object
  * @param { String } url
- * @return { Object }
+ * @returns { Object }
  */
 export function param2Obj (url) {
   const search = url.split('?')[1]
@@ -174,7 +174,7 @@ export function param2Obj (url) {
 /**
  * @description parse html to text
  * @param { String } val
- * @return { String }
+ * @returns { String }
  */
 export function html2Text (val) {
   const div = document.createElement('div')
@@ -186,7 +186,7 @@ export function html2Text (val) {
  * @description merges two objects, giving the last one precedence
  * @param { Object } target
  * @param { Object | Array} source
- * @return { Object }
+ * @returns { Object }
  */
 export function objectMerge (target, source) {
   if (typeof target !== 'object') {
@@ -231,7 +231,7 @@ export function toggleClass (element, className) {
  * @param { Function } func
  * @param { Number } wait
  * @param { Boolean } immediate
- * @return { * }
+ * @returns { * }
  */
 export function debounce (func, wait, immediate) {
   let timeout, args, context, timestamp, result
@@ -271,7 +271,7 @@ export function debounce (func, wait, immediate) {
 /**
  * @description This is just a simple version of deep copy. Has a lot of edge cases bug. If you want to use a perfect deep copy, use lodash's _.cloneDeep
  * @param { Object } source
- * @return { Object }
+ * @returns { Object }
  */
 export function deepClone (source) {
   if (!source && typeof source !== 'object') {
@@ -291,7 +291,7 @@ export function deepClone (source) {
 /**
  * @description filter duplicate elements of an array
  * @param { Array } arr
- * @return { Array }
+ * @returns { Array }
  */
 export function uniqueArr (arr) {
   return Array.from(new Set(arr))
@@ -299,7 +299,7 @@ export function uniqueArr (arr) {
 
 /**
  * @description generate uuid
- * @return { String }
+ * @returns { String }
  */
 export function createUniqueString () {
   const timestamp = +new Date() + ''
@@ -311,7 +311,7 @@ export function createUniqueString () {
  * @description check if the html element has the class
  * @param { HTMLElement } element
  * @param { String } className
- * @return { Boolean }
+ * @returns { Boolean }
  */
 export function hasClass (element, className) {
   return !!element.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
@@ -343,7 +343,7 @@ export function removeClass (element, className) {
 
 /**
  * @description get current navigator name
- * @return { String } current navigator name
+ * @returns { String } current navigator name
  */
 export const getExplorer = () => {
   const ua = window.navigator.userAgent
@@ -410,7 +410,7 @@ export const off = (function () {
 /**
  * @description transform DataURL to Blob Object
  * @param { String } dataUrl
- * @return { Blob } Blob Object
+ * @returns { Blob } Blob Object
  */
 export const dataURLToBlob = dataUrl => {
   const arr = dataUrl.split(',')
@@ -427,7 +427,7 @@ export const dataURLToBlob = dataUrl => {
 /**
  * @description transform Image Object to Base64 String
  * @param { HTMLImageElement } image, Image Object
- * @return { String } Base64 String
+ * @returns { String } Base64 String
  */
 export const getBase64FromImage = image => {
   const canvas = document.createElement('canvas')
@@ -442,7 +442,7 @@ export const getBase64FromImage = image => {
 /**
  * @description write async await without try-catch blocks
  * @param { Function } asyncFunc, asynchronous function
- * @return { Array } callback result of asynchronous function
+ * @returns { Array } callback result of asynchronous function
  */
 export const asyncAction = asyncFunc => {
   return asyncFunc.then(res => {
@@ -455,7 +455,7 @@ export const asyncAction = asyncFunc => {
 /**
  * @description transform kebab-case to camelCase
  * @param { String } str
- * @return { String }
+ * @returns { String }
  * @author Jackie
  * @date 2020-03-20 09:34
  */
@@ -474,7 +474,7 @@ export const getCamelCase = (function () {
 /**
  * @description transform camelCase to kebab-case
  * @param { String } str
- * @return { String }
+ * @returns { String }
  * @author Jackie
  * @date 2020-03-20 09:40
  */
@@ -494,7 +494,7 @@ export const getKebabCase = (function () {
  * @description get the final CSS property value of the element
  * @param { HTMLElement } element
  * @param { String } property
- * @return { * }
+ * @returns { * }
  * @author Jackie
  * @date 2020-03-20 09:04
  */

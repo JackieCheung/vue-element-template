@@ -1,7 +1,7 @@
 /**
  * @description parse query string of the url to json object
  * @param { String } url
- * @return { Object }
+ * @returns { Object }
  */
 export function param2Obj (url) {
   const search = url.split('?')[1]

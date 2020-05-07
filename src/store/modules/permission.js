@@ -4,7 +4,7 @@ import { asyncRoutes, constantRoutes } from '@/router'
  * @description use meta.role to determine if the current user has permission
  * @param { Array } roles
  * @param { Object } route
- * @return { Boolean } has permission or not
+ * @returns { Boolean } has permission or not
  */
 function hasPermission (roles, route) {
   if (route.meta && route.meta.roles) {
@@ -18,7 +18,7 @@ function hasPermission (roles, route) {
  * @description filter asynchronous routing tables by recursion
  * @param { Array } routes
  * @param { Array } roles
- * @return { Array } permissible routes
+ * @returns { Array } permissible routes
  */
 export function filterAsyncRoutes (routes, roles) {
   const res = []
