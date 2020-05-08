@@ -3,7 +3,7 @@
   import { isExternal } from '@/utils/validate'
   import MenuItem from '../MenuItem'
   import AppLink from '../Link'
-  import FixIOSBug from '../../mixins/fix-ios-bug'
+  import fixIOSBug from '../../mixins/fix-ios-bug'
 
   export default {
     name: 'SidebarItem',
@@ -11,7 +11,7 @@
       MenuItem,
       AppLink
     },
-    mixins: [FixIOSBug],
+    mixins: [fixIOSBug],
     props: {
       // route object
       item: {
@@ -67,7 +67,7 @@
             </app-link>
           }
         } else {
-          sideBarItem = <el-submenu ref='subMenu' index={this.resolvePath(this.item.path)} popper-append-to-body>
+          sideBarItem = <el-submenu ref='subMenu' index={this.resolvePath(this.item.path)} popper-append-to-body nativeOnClick={() => this.item.redirect && this.item.redirect !== 'noRedirect' ? this.$router.push(this.item.redirect).catch(err => err) : ''}>
             <template slot='title'>
               {this.item.meta ? <menu-item icon-type={this.item.meta.iconType} icon={this.item.meta.icon}
                                            title={this.item.meta.title}></menu-item> : ''}

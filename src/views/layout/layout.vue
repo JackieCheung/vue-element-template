@@ -14,7 +14,7 @@
 
 <script>
   import { AppMain, Navbar, Sidebar, TagsView } from './components'
-  import ResizeMixin from './mixins/resize-handler'
+  import resize from './mixins/resize-handler'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -25,7 +25,7 @@
       Sidebar,
       TagsView
     },
-    mixins: [ResizeMixin],
+    mixins: [resize],
     computed: {
       ...mapGetters('app', [
         'sidebar',

@@ -146,7 +146,7 @@
         })
       },
       closeOtherTags () {
-        this.$router.push(this.selectedTag)
+        this.$router.push(this.selectedTag).catch(err => err)
         this.$store.dispatch('routerView/delOthersViews', this.selectedTag).then(() => {
           this.moveToCurrentTag()
         })
@@ -162,7 +162,7 @@
       toLastView (visitedViews, view) {
         const latestView = visitedViews.slice(-1)[0]
         if (latestView) {
-          this.$router.push(latestView.fullPath)
+          this.$router.push(latestView.fullPath).catch(err => err)
         } else {
           // now the default is to redirect to the home page if there is no tags-view,
           // you can adjust it according to your needs.
@@ -170,7 +170,7 @@
             // to reload home page
             this.$router.replace({ path: '/redirect' + view.fullPath })
           } else {
-            this.$router.push('/')
+            this.$router.push('/').catch(err => err)
           }
         }
       },

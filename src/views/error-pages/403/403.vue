@@ -39,7 +39,7 @@
     methods: {
       goBack () {
         if (this.$route.query.noGoBack) {
-          this.$router.push({ path: '/dashboard' })
+          this.$router.push({ path: '/dashboard' }).catch(err => err)
         } else {
           this.$router.go(-1)
         }
