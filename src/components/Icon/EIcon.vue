@@ -1,6 +1,6 @@
 <script>
   export default {
-    name: 'Icon',
+    name: 'EIcon',
     functional: true,
     props: {
       iconType: {
