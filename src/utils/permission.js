@@ -7,7 +7,7 @@ import store from '@/store'
  */
 export function hasPermission (value) {
   if (value && value instanceof Array && value.length > 0) {
-    const roles = store.getters && store.getters.roles
+    const roles = store.getters['user/roles'] && store.getters['user/roles']
     const permissibleRoles = value
     return roles.some(role => {
       return permissibleRoles.includes(role)

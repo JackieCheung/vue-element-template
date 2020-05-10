@@ -333,13 +333,26 @@ export function addClass (element, className) {
  */
 export function removeClass (element, className) {
   if (hasClass(element, className)) {
-    const reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
-    element.className = element.className.replace(reg, ' ')
-    // // OR
-    // const classNames = element.className.split(' ')
-    // element.className = classNames.splice(classNames.indexOf(className), 1).join(' ')
+    const classNames = element.className.split(' ')
+    classNames.splice(classNames.indexOf(className), 1)
+    element.className = classNames.join(' ')
   }
 }
+
+// /**
+//  * @description trigger the class of the html element
+//  * @param { HTMLElement } element
+//  * @param { String } className
+//  * @author Jackie
+//  * @date 2020-04-27 16:35
+//  */
+// export const triggerClass = (element, className) => {
+//   if (hasClass(element, className)) {
+//     removeClass(element, className)
+//   } else {
+//     addClass(element, className)
+//   }
+// }
 
 /**
  * @description get current navigator name
@@ -442,13 +455,13 @@ export const getBase64FromImage = image => {
 /**
  * @description write async await without try-catch blocks
  * @param { Function } asyncFunc, asynchronous function
- * @returns { Array } callback result of asynchronous function
+ * @returns { Array } callback result of asynchronous function([response, error])
  */
 export const asyncAction = asyncFunc => {
   return asyncFunc.then(res => {
-    return [null, res]
+    return [res, null]
   }).catch(err => {
-    return [err, null]
+    return [null, err]
   })
 }
 
@@ -463,7 +476,7 @@ export const getCamelCase = (function () {
   const cache = {}
   return function (str) {
     if (!cache[str]) {
-      cache[str] = str.replace(/-([a-z])/g, function (match, i) {
+      cache[str] = str.replace(/[-_]([a-z])/g, function (match, i) {
         return i.toUpperCase()
       })
     }
@@ -484,6 +497,25 @@ export const getKebabCase = (function () {
     if (!cache[str]) {
       cache[str] = str.replace(/[A-Z]/g, function (i) {
         return '-' + i.toLowerCase()
+      })
+    }
+    return cache[str]
+  }
+})()
+
+/**
+ * @description transform camelCase to snake_case
+ * @param { String } str
+ * @returns { String }
+ * @author Jackie
+ * @date 2020-04-26 15:38
+ */
+export const getSnakeCase = (function () {
+  const cache = {}
+  return function (str) {
+    if (!cache[str]) {
+      cache[str] = str.replace(/[A-Z]/g, function (i) {
+        return '_' + i.toLowerCase()
       })
     }
     return cache[str]
@@ -530,7 +562,7 @@ export const getArrayUnion = (arr1, arr2) => {
  * @description get difference of two arrays
  * @param { Array } arr1
  * @param { Array } arr2
- * @returns { Array } get difference of two arrays
+ * @returns { Array } difference of two arrays
  * @author Jackie
  * @date 2020-04-05 02:13
  */

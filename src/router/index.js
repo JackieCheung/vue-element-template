@@ -34,7 +34,7 @@ import errorPageRoute from './modules/error-page'
  * meta : {
     roles: ['admin','editor']     set permissions for this route, control the page roles (you can set multiple roles)
     title: `${title}`             the name show in sidebar and breadcrumb (recommend set)
-    iconType: 'font-awesome'      the type of icon, can be set one of ['font-awesome', 'svg', 'element'](default is 'font-awesome')
+    iconType: 'font-awesome'      the type of icon, can be set one of ['font-awesome', 'svg', 'element-ui', 'view-ui'](default is 'font-awesome')
     icon: `${iconName}`           the icon show in the sidebar
     noCache: true                 if set true, the page will no be cached(default is false)
     affix: true                   if set true, the tag will affix in the tags-view
@@ -59,8 +59,9 @@ export const constantRoutes = [
       name: 'Dashboard',
       meta: {
         title: 'Dashboard',
-        icon: 'dashboard',
-        affix: true
+        icon: 'tachometer-alt',
+        affix: true,
+        noCache: true
       }
     }]
   },
@@ -94,6 +95,7 @@ export const asyncRoutes = [
 const createRouter = () => new VueRouter({
   mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
+  base: process.env.VUE_APP_ROUTER_BASE_PATH,
   routes: constantRoutes
 })
 

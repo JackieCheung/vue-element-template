@@ -139,11 +139,20 @@ export function isScrolledToBottom (element) {
 }
 
 /**
- * @description determine whether the val is empty
- * @param { * } val
+ * @description validate whether is an valid id-card number or not
+ * @param { String } idCardNo
  * @returns { Boolean }
  * @author Jackie
- * @date 2020-04-01 20:30
+ * @date 2020-03-23 16:40
+ */
+export function validIdCard (idCardNo) {
+  return /(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0\d|10|11|12)([0-2]\d|30|31)\d{3}[\dXx]$)/.test(idCardNo)
+}
+
+/**
+ * @description determine whether the val is empty or not
+ * @param { * } val
+ * @returns { Boolean }
  */
 export const isEmpty = (val) => {
   // null or undefined
@@ -174,6 +183,15 @@ export const isEmpty = (val) => {
   }
 
   return false
+}
+
+/**
+ * @description determine whether is a function or not
+ * @param { * } arg
+ * @returns { Boolean }
+ */
+export const isFunction = (arg) => {
+  return Object.prototype.toString.apply(arg) === '[object Function]'
 }
 
 /**

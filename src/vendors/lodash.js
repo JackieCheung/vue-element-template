@@ -1,5 +1,3 @@
 import Vue from 'vue'
 
-import _ from 'lodash'
-
-Vue.prototype.lodash = _
+Vue.prototype.$lodash = require('lodash')

@@ -8,7 +8,7 @@ import { getPageTitle } from '@/utils/tools'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login'] // free login whitelist
+const whiteList = ['/login', '/register'] // free login whitelist
 
 router.beforeEach(async (to, from, next) => {
   // start progress bar
@@ -27,7 +27,7 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getUserInfo
-      const hasRoles = store.getters.roles && store.getters.roles.length > 0
+      const hasRoles = store.getters['user/roles'] && store.getters['user/roles'].length > 0
       if (hasRoles) {
         // when has roles it means that all accessible routes have been generated
         // if visit a page without permission, it will automatically enter the 404 page
@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
-          Message.error(error || 'Has Error')
+          Message.error(error.message || '登录失败，请重新登录！')
           next(`/login?redirect=${to.path}`)
           NProgress.done()
         }

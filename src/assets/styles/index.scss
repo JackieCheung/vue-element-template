@@ -4,6 +4,7 @@
 @import './transition.scss';
 @import './sidebar.scss';
 @import './element-ui.scss';
+@import './view-ui.scss';
 
 html {
   height: 100%;
@@ -29,31 +30,15 @@ body {
   box-sizing: inherit;
 }
 
-.el-scrollbar-container {
-  position: relative;
-  height: 100%;
-
-  &.vertical {
-    .el-scrollbar__bar.is-horizontal {
-      display: none;
-    }
-  }
-
-  &.horizontal {
-    .el-scrollbar__bar.is-vertical {
-      display: none;
-    }
-  }
+a:focus,
+a:active {
+  outline: none;
 }
 
-.el-scrollbar__wrap {
-  &-vertical {
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
-
-  &-horizontal {
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 }

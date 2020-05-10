@@ -1,1 +1,45 @@
-// cover some element-ui styles
+// some styles related to element-ui
+.el-scrollbar-container {
+  position: relative;
+  height: 100%;
+
+  &.vertical {
+    .el-scrollbar__bar.is-horizontal {
+      display: none;
+    }
+  }
+
+  &.horizontal {
+    .el-scrollbar__bar.is-vertical {
+      display: none;
+    }
+  }
+}
+
+.el-scrollbar__wrap {
+  &-vertical {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  &-horizontal {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+}
+
+.vertical-center-dialog {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.horizontal-center-dialog {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.center-dialog {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

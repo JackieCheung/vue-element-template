@@ -1,6 +1,6 @@
 <script>
   export default {
-    name: 'MenuItem',
+    name: 'Icon',
     functional: true,
     props: {
       iconType: {
@@ -11,36 +11,38 @@
         type: String,
         default: ''
       },
-      title: {
+      className: {
         type: String,
         default: ''
       }
     },
     render (h, context) {
-      const { iconType, icon, title } = context.props
+      const { iconType, icon, className } = context.props
+      const style = context.data && context.data.staticStyle || {}
+
+      const getClassName = () => {
+        return `icon${className ? ' ' + className : ''}`
+      }
+
       const vnodes = []
 
       if (icon) {
         switch (iconType) {
           case 'font-awesome':
-            vnodes.push(<font-awesome-icon icon={icon} class='icon' />)
+            vnodes.push(<font-awesome-icon icon={icon} class={getClassName()} style={style} />)
             break
           case 'svg':
-            vnodes.push(<svg-icon icon-class={icon} class='icon' />)
+            vnodes.push(<svg-icon icon-class={icon} class={getClassName()} style={style} />)
             break
           case 'element-ui':
-            vnodes.push(<i class={`${icon} icon`} />)
+            vnodes.push(<i class={`${getClassName()}${icon ? ' ' + icon : ''}`} style={style} />)
             break
           case 'view-ui':
-            vnodes.push(<Icon class='icon' type={icon} />)
+            vnodes.push(<Icon class={getClassName()} type={icon} style={style} />)
             break
           default:
             break
         }
-      }
-
-      if (title) {
-        vnodes.push(<span slot='title'>{(title)}</span>)
       }
       return vnodes
     }
@@ -53,6 +55,5 @@
     height: 1em;
     font-size: 1em;
     color: inherit;
-    vertical-align: middle;
   }
 </style>

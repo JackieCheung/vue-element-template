@@ -4,35 +4,31 @@ import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
-  username: '',
-  avatar: '',
-  roles: []
+  roles: [],
+  userInfo: {}
 }
 
 const getters = {
   token: state => state.token,
-  username: state => state.username,
-  avatar: state => state.avatar,
-  roles: state => state.roles
+  roles: state => state.roles,
+  userInfo: state => state.userInfo
 }
 
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_USERNAME: (state, username) => {
-    state.username = username
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
-  },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_USER_INFO: (state, userInfo) => {
+    state.userInfo = userInfo
   }
 }
 
 const actions = {
   // user login
+  // info: 登录信息
   login ({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
@@ -40,10 +36,12 @@ const actions = {
         username: username.trim(),
         password: password
       }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
+        if (response.code === 0) {
+          const { token } = response.data
+          commit('SET_TOKEN', token)
+          setToken(token)
+        }
+        resolve(response)
       }).catch(error => {
         reject(error)
       })
@@ -53,25 +51,23 @@ const actions = {
   // get user info
   getUserInfo ({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getUserInfo().then(response => {
-        const { data } = response
+      getUserInfo().then(res => {
+        const { code, data, msg } = res
+        if (code !== 0 || !data) {
+          reject(new Error(msg ? msg + '，请重新登录！' : '验证失败，请重新登录！'))
+        } else {
+          const { roles } = data
 
-        if (!data) {
-          reject('Verification failed, please login again.')
+          // roles must be a non-empty array
+          if (!roles || roles.length <= 0) {
+            reject(new Error('getUserInfo: roles must be a non-null array!'))
+          }
+
+          commit('SET_ROLES', roles)
+          commit('SET_USER_INFO', data)
+
+          resolve(data)
         }
-
-        const { roles, username, avatar } = data
-
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getUserInfo: roles must be a non-null array!')
-        }
-
-        commit('SET_ROLES', roles)
-        commit('SET_USERNAME', username)
-        commit('SET_AVATAR', avatar)
-
-        resolve(data)
       }).catch(error => {
         reject(error)
       })

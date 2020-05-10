@@ -1,9 +1,12 @@
 import axios from 'axios'
 import store from '@/store'
-import { getToken } from '@/utils/token'
+// import { getToken } from '@/utils/token'
 
 // create an axios instance
 const HttpRequest = axios.create({
+  headers: {
+    'Content-Type': 'application/json'
+  },
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 20000 // request timeout
@@ -14,17 +17,18 @@ HttpRequest.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    if (store.getters.token) {
+    if (store.getters['user/token']) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation, such as `config.headers['Authorization'] = 'Bearer ' + getToken()`
-      config.headers['X-Token'] = getToken()
+      // config.headers['authentication'] = getToken()
+      config.headers['authentication'] = store.getters['user/token']
     }
     return config
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
+    console.error(error) // for debug
     return Promise.reject(error)
   }
 )
@@ -55,7 +59,7 @@ HttpRequest.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.error('err' + error) // for debug
     return Promise.reject(error)
   }
 )

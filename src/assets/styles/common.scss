@@ -1,4 +1,11 @@
 // common styles
+.text-success {
+  color: #19be6b !important;
+}
+
+.text-danger {
+  color: #ed4014 !important;
+}
 
 .text-center {
   text-align: center !important;
@@ -306,6 +313,14 @@
   transform: translate(-50%, -50%);
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
+.vertical-align-middle {
+  vertical-align: middle !important;
+}
+
 /**
  * @description: keyframes, animation rules
  * @params: animation-name、animation-content({keyframes-selector {css-styles;}})
@@ -366,4 +381,16 @@
   -ms-transform: $arguments;
   -o-transform: $arguments;
   transform: $arguments;
+}
+
+.required-item {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    left: -12px;
+    top: 0;
+    content: '*';
+    color: #f56c6c;
+  }
 }

@@ -181,6 +181,7 @@
         line-height: 40px;
         color: #1482f0;
         opacity: 0;
+        margin-top: 1em;
         margin-bottom: 20px;
         animation-name: slideUp;
         animation-duration: 0.5s;
@@ -193,6 +194,7 @@
         color: #222;
         font-weight: bold;
         opacity: 0;
+        margin-top: 1em;
         margin-bottom: 10px;
         animation-name: slideUp;
         animation-duration: 0.5s;
@@ -205,6 +207,7 @@
         line-height: 21px;
         color: grey;
         opacity: 0;
+        margin-top: 1em;
         margin-bottom: 30px;
         animation-name: slideUp;
         animation-duration: 0.5s;

@@ -1,3 +1,3 @@
-import Table from './Table'
+import ETable from './ETable'
 
-export default Table
+export default ETable

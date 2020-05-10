@@ -67,6 +67,8 @@
     }
 
     ul {
+      margin: 1em 0;
+      padding-left: 40px;
       font-size: 14px;
 
       li {
