@@ -67,7 +67,7 @@
             </app-link>
           }
         } else {
-          sideBarItem = <el-submenu ref='subMenu' index={this.resolvePath(this.item.path)} popper-append-to-body nativeOnClick={() => this.item.redirect && this.item.redirect !== 'noRedirect' ? this.$router.push(this.item.redirect).catch(err => err) : ''}>
+          sideBarItem = <el-submenu ref='subMenu' index={this.resolvePath(this.item.path)} popper-append-to-body vOn:click_native_capture={() => this.item.redirect && this.item.redirect !== 'noRedirect' ? this.$router.push(this.item.redirect).catch(err => err) : ''}>
             <template slot='title'>
               {this.item.meta ? <menu-item icon-type={this.item.meta.iconType} icon={this.item.meta.icon}
                                            title={this.item.meta.title}></menu-item> : ''}
