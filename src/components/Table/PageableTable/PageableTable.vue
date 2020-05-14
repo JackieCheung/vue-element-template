@@ -212,7 +212,7 @@
       renderTable (criteriaBuilder) {
         this.$emit('before-load')
         this.table.loading = true
-        this.getTableData(criteriaBuilder).then(res => {
+        this.getTableData(!this.pageable ? criteriaBuilder.filter : criteriaBuilder).then(res => {
           if (res.code === 0) {
             this.table.data = this.tableDataGetter(res)
             this.pageInfo = this.pageInfoGetter(res)
