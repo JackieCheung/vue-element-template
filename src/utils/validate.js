@@ -210,3 +210,14 @@ export const validImage = (url) => {
     image.src = url
   })
 }
+
+/**
+ * @description validate whether is an valid amount or not
+ * @param { String } val
+ * @returns { Boolean }
+ * @author Jackie
+ * @date 2020-05-16 11:05
+ */
+export const validAmount = (val) => {
+  return /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(val)
+}
