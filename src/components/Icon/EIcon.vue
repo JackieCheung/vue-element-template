@@ -8,7 +8,7 @@
         default: 'font-awesome'
       },
       icon: {
-        type: String,
+        type: [String, Array],
         default: ''
       },
       className: {

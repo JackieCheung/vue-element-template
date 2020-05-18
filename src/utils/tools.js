@@ -454,8 +454,8 @@ export const getBase64FromImage = image => {
 
 /**
  * @description write async await without try-catch blocks
- * @param { Function } asyncFunc, asynchronous function
- * @returns { Array } callback result of asynchronous function([response, error])
+ * @param { Promise } asyncFunc, asynchronous function
+ * @returns { Promise } callback result of asynchronous function([response, error])
  */
 export const asyncAction = asyncFunc => {
   return asyncFunc.then(res => {
