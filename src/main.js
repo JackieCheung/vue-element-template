@@ -18,6 +18,7 @@ import * as filters from './filters' // global filters
 import './assets/icons' // Svg Icon
 import './vendors/font-awesome-icon' // Font Awesome Icon
 import './vendors/lodash' // lodash
+import './vendors/element-ui' // Element UI
 import './vendors/view-ui' // View UI
 import EIcon from './components/Icon'
 

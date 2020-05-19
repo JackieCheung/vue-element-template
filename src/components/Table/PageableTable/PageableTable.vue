@@ -218,22 +218,14 @@
             this.pageInfo = this.pageInfoGetter(res)
             this.$emit('load-success', res)
           } else {
-            this.$message({
-              showClose: true,
-              message: '获取列表数据失败！' + this.resMsgGetter(res) + '请重试！',
-              type: 'error'
-            })
+            this.$msg.error('获取列表数据失败！' + this.resMsgGetter(res) + '请重试！')
             this.table.data = []
             this.pageInfo.total = 0
             this.$emit('load-fail')
           }
         }).catch(error => {
           console.error(error)
-          this.$message({
-            showClose: true,
-            message: '获取列表数据失败！请重试！',
-            type: 'error'
-          })
+          this.$msg.error('获取列表数据失败！请重试！')
           this.table.data = []
           this.pageInfo.total = 0
           this.$emit('load-fail')

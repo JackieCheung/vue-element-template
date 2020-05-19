@@ -23,10 +23,7 @@
     methods: {
       handleScreenFull () {
         if (!screenfull.isEnabled) {
-          this.$message({
-            message: 'Sorry, your browser does not support full screen!',
-            type: 'warning'
-          })
+          this.$msg.warning('Sorry, your browser does not support full screen!')
           return false
         }
         screenfull.toggle()
