@@ -80,7 +80,7 @@
             :scope="scope">
           </render-column>
           <slot v-else-if="column.slot" :name="column.slot" :scope="scope"></slot>
-          <span v-else>{{ scope.row[column.key || column.prop] || colEmptyText }}</span>
+          <span v-else>{{ (column.formatter && column.formatter(scope.row)) || scope.row[column.key || column.prop] || colEmptyText }}</span>
         </template>
       </el-table-column>
     </template>
