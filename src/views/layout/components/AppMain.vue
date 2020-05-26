@@ -17,7 +17,7 @@
     name: 'AppMain',
     computed: {
       cachedViews () {
-        return this.$store.state.routerView.cachedViews
+        return ['ParentView', ...this.$store.state.routerView.cachedViews]
       },
       key () {
         return this.$route.path
