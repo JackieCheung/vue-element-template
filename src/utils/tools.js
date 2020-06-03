@@ -308,6 +308,18 @@ export function createUniqueString () {
 }
 
 /**
+ * @description generate guid
+ * @returns { String }
+ */
+export const generateGuid = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = Math.random() * 16 | 0
+    const v = c === 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
+
+/**
  * @description check if the html element has the class
  * @param { HTMLElement } element
  * @param { String } className
