@@ -1,6 +1,5 @@
 <template>
   <el-table-column
-    :key="column.key || column.prop || 'column_' + getUniqueString()"
     :type="column.type || ''"
     :index="column.index"
     :column-key="column.columnKey || column.key || column.prop || ''"
