@@ -42,7 +42,6 @@
       </el-table-column>
       <nested-column
         v-else-if="column.children && column.children.length"
-        :key="column.key || column.prop || 'column_' + getUniqueString()"
         :attrs="attrs"
         :column="column"
         :index="index"></nested-column>
