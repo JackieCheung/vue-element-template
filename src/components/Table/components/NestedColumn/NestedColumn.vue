@@ -1,5 +1,6 @@
 <template>
   <el-table-column
+    :key="column.key || column.prop || column.label || index || 'column_' + getUniqueString()"
     :type="column.type || ''"
     :index="column.index"
     :column-key="column.columnKey || column.key || column.prop || ''"
@@ -30,7 +31,7 @@
     <template v-if="column.children && column.children.length">
       <nested-column
         v-for="(col, i) in column.children"
-        :key="col.key || col.prop || 'nested_column_' + getUniqueString()"
+        :key="col.key || col.prop || col.label || i || 'nested_column_' + getUniqueString()"
         :attrs="attrs"
         :column="col"
         :index="i">
