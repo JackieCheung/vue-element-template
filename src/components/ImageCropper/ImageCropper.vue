@@ -358,7 +358,7 @@
       width: 100%;
       padding: 16px;
 
-      /deep/ {
+      ::v-deep {
         .el-upload {
           width: 100%;
         }
@@ -390,7 +390,7 @@
       .previewer {
         height: 300px;
 
-        /deep/ .image-slot {
+        ::v-deep .image-slot {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -413,7 +413,7 @@
           &.circle {
             border-radius: 100%;
 
-            /deep/ img {
+            ::v-deep img {
               border-radius: 100%;
             }
           }

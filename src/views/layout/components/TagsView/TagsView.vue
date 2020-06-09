@@ -253,7 +253,7 @@
             background: #2d8cf0;
           }
 
-          /deep/ .el-icon-close {
+          ::v-deep .el-icon-close {
             &:hover {
               color: #fff;
               background-color: #409eff;
@@ -261,7 +261,7 @@
           }
         }
 
-        /deep/ .el-icon-close {
+        ::v-deep .el-icon-close {
           position: relative;
           top: -1px;
           right: -5px;

@@ -269,7 +269,7 @@
 </script>
 
 <style lang="scss" scoped>
-  /deep/ {
+  ::v-deep {
     .el-table {
       .column-descending {
         .sort-caret.descending {
