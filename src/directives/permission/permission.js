@@ -1,7 +1,7 @@
 import store from '@/store'
 
 export default {
-  inserted (el, binding, vnode) {
+  update (el, binding, vnode) {
     const { value } = binding
     const roles = store.getters && store.getters['user/roles']
 
