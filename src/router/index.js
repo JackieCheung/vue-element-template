@@ -15,7 +15,7 @@ import Layout from '_v/layout'
 
 // for multilevel nested routes
 // eslint-disable-next-line no-unused-vars
-import RouterView from '_c/RouterView'
+import ParentView from '_c/ParentView'
 
 /* Route Modules */
 import userRoute from './modules/user'

@@ -1,4 +1,4 @@
-export default [{
+module.exports = [{
   url: '/user/get',
   type: 'post',
   response: _ => {

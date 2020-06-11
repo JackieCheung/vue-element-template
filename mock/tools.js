@@ -3,7 +3,7 @@
  * @param { String } url
  * @returns { Object }
  */
-export function param2Obj (url) {
+function param2Obj (url) {
   const search = url.split('?')[1]
   if (!search) {
     return {}
@@ -17,4 +17,8 @@ export function param2Obj (url) {
       .replace(/\+/g, ' ') +
     '"}'
   )
+}
+
+module.exports = {
+  param2Obj
 }
