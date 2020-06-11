@@ -63,7 +63,10 @@ module.exports = {
     }
   },
   chainWebpack (config) {
-    config.plugins.delete('preload')
+    // it can improve the speed of the first screen, it is recommended to turn on preload
+    // config.plugins.delete('preload')
+
+    // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
 
     // set svg-sprite-loader

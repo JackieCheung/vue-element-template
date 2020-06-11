@@ -1,6 +1,6 @@
 {
   "name": "vue-element-template",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An amazing template of admin management system based on Vue and Element-UI. An out-of-box UI solution for enterprise applications. Newest development stacks of vue. Lots of awesome features.",
   "author": "Jackie <JackieCheung517@gmail.com>",
   "license": "MIT",
@@ -83,8 +83,6 @@
     "xlsx": "^0.16.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/register": "^7.9.0",
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-plugin-eslint": "^4.3.1",
     "@vue/cli-plugin-unit-jest": "^4.3.1",
