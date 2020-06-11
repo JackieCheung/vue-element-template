@@ -1,6 +1,6 @@
 const Mock = require('mockjs')
 
-import { param2Obj } from './tools'
+const { param2Obj } = require('./tools')
 
 /**
  * note: polyfill for require.context
