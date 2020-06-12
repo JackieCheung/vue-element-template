@@ -1,22 +1,29 @@
 import store from '@/store'
 
-export default {
-  update (el, binding, vnode) {
-    const { value } = binding
-    const roles = store.getters && store.getters['user/roles']
+function checkPermission (el, binding) {
+  const { value } = binding
+  const roles = store.getters && store.getters['user/roles']
 
-    if (value && value instanceof Array && value.length > 0) {
-      const permissibleRoles = value
+  if (value && value instanceof Array && value.length) {
+    const permissibleRoles = value
 
-      const hasPermission = roles.some(role => {
-        return permissibleRoles.includes(role)
-      })
+    const hasPermission = roles.some(role => {
+      return permissibleRoles.includes(role)
+    })
 
-      if (!hasPermission) {
-        el.parentNode && el.parentNode.removeChild(el)
-      }
-    } else {
-      throw new Error(`Require roles! Like v-permission="['admin','user']"`)
+    if (!hasPermission) {
+      el.parentNode && el.parentNode.removeChild(el)
     }
+  } else {
+    throw new Error(`Require roles! Like v-permission="['admin','user']"`)
+  }
+}
+
+export default {
+  inserted (el, binding) {
+    checkPermission(el, binding)
+  },
+  update (el, binding) {
+    checkPermission(el, binding)
   }
 }

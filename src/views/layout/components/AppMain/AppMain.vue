@@ -39,7 +39,8 @@
     background-color: #f5f7fa;
 
     &__content {
-      padding: 24px 16px;
+      // padding: 24px 16px;
+      padding: 16px;
     }
   }
 
