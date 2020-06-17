@@ -30,12 +30,14 @@ export default {
       await doResize(el, binding, vnode)
     }
     // parameter 1 is must be "Element" type
+    addResizeListener(el, el.resizeListener)
     addResizeListener(window.document.body, el.resizeListener)
   },
   async inserted (el, binding, vnode) {
     await doResize(el, binding, vnode)
   },
   unbind (el) {
+    removeResizeListener(el, el.resizeListener)
     removeResizeListener(window.document.body, el.resizeListener)
   }
 }

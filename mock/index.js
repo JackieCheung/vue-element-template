@@ -1,6 +1,6 @@
 const Mock = require('mockjs')
 
-const { param2Obj } = require('./tools')
+const { param2Obj } = require('./utils')
 
 // /**
 //  * note: polyfill for require.context
