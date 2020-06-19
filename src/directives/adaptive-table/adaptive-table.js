@@ -8,7 +8,7 @@ import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/re
  */
 
 const doResize = async (el, binding, vnode) => {
-  const $table = await vnode.componentInstance.$refs.eTable.$refs.elTable
+  const $table = await (vnode.componentInstance.$refs.eTable ? vnode.componentInstance.$refs.eTable.$refs.elTable : vnode.componentInstance)
 
   const { value } = binding
 

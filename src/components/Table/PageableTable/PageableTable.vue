@@ -116,7 +116,7 @@
           ...{
             border: true,
             size: 'medium',
-            rowKey: row => row.id
+            'row-key': row => row.id
           },
           ...this.$attrs
         }
