@@ -94,16 +94,21 @@ module.exports = {
       })
       .end()
 
-    // set preserveWhitespace
-    config.module
-      .rule('vue')
-      .use('vue-loader')
-      .loader('vue-loader')
-      .tap(options => {
-        options.compilerOptions.preserveWhitespace = true
-        return options
-      })
-      .end()
+    /**
+     * preserveWhitespace Deprecated since vue@2.6
+     * Recommend whitespace: 'condense', it is the default config in new vue-cli https://github.com/vuejs/vue-cli/pull/3853
+     * Detail: https://github.com/vuejs/vue/issues/9208#issuecomment-450012518
+     */
+    // // set preserveWhitespace
+    // config.module
+    //   .rule('vue')
+    //   .use('vue-loader')
+    //   .loader('vue-loader')
+    //   .tap(options => {
+    //     options.compilerOptions.preserveWhitespace = true
+    //     return options
+    //   })
+    //   .end()
 
     // // use vue-cli default source-map
     // config
