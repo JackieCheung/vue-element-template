@@ -267,7 +267,7 @@
           right: -5px;
           width: 16px;
           height: 16px;
-          line-height: 16px;
+          line-height: 17px;
           vertical-align: middle;
           border-radius: 50%;
           text-align: center;
