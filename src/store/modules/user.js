@@ -54,7 +54,7 @@ const actions = {
       getUserInfo().then(res => {
         const { code, data, msg } = res
         if (code !== 0 || !data) {
-          reject(new Error(msg ? msg + '，请重新登录！' : '验证失败，请重新登录！'))
+          return reject(new Error(msg ? msg + '，请重新登录！' : '验证失败，请重新登录！'))
         } else {
           const { roles } = data
 
