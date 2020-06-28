@@ -60,7 +60,7 @@ const actions = {
 
           // roles must be a non-empty array
           if (!roles || roles.length <= 0) {
-            reject(new Error('getUserInfo: roles must be a non-null array!'))
+            return reject(new Error('getUserInfo: roles must be a non-null array!'))
           }
 
           commit('SET_ROLES', roles)
