@@ -65,7 +65,7 @@ export function numberFormatter (num, digits) {
 }
 
 /**
- * @description format number, like 10000 => "10,000"
+ * @description format number, like 10000 => "10,000.00"
  * @param { Number } num
  * @param { Number } digit
  * @returns { String }
