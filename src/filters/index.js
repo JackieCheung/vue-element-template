@@ -67,11 +67,12 @@ export function numberFormatter (num, digits) {
 /**
  * @description format number, like 10000 => "10,000"
  * @param { Number } num
+ * @param { Number } digit
  * @returns { String }
  */
-export function toThousandFilter (num) {
-  // return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
-  return (+num || 0).toString().replace(/\B(?=(\d{3})+\b)/g, ',')
+export function toThousandFilter (num, digit = 2) {
+  // return (+num || 0).toFixed(digit).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  return (+num || 0).toFixed(digit).toString().replace(/\B(?=(\d{3})+\b)/g, ',')
 }
 
 /**
