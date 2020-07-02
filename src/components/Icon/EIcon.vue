@@ -18,7 +18,14 @@
     },
     render (h, context) {
       const { iconType, icon, className } = context.props
-      const style = context.data && context.data.staticStyle || {}
+      const staticStyle = context.data && context.data.staticStyle || {}
+      // object syntax
+      const dynamicStyle = context.data && context.data.style || {}
+
+      const style = {
+        ...staticStyle,
+        ...dynamicStyle
+      }
 
       const getClassName = () => {
         return `icon${className ? ' ' + className : ''}`
