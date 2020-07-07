@@ -1,4 +1,6 @@
 <script>
+  import { isArray, isObject } from '@/utils/validate'
+
   export default {
     name: 'EIcon',
     functional: true,
@@ -17,35 +19,39 @@
       }
     },
     render (h, context) {
-      const { iconType, icon, className } = context.props
-      const staticStyle = context.data && context.data.staticStyle || {}
-      // object syntax
-      const dynamicStyle = context.data && context.data.style || {}
+      const { iconType, icon } = context.props
+      const { style: dynamicStyle, staticStyle, class: dynamicClass, staticClass } = context.data
 
       const style = {
         ...staticStyle,
-        ...dynamicStyle
+        ...dynamicStyle // object syntax
       }
 
-      const getClassName = () => {
-        return `icon${className ? ' ' + className : ''}`
-      }
+      const className = [
+        ...new Set([
+          ...(staticClass ? staticClass.split(' ') : []),
+          ...(isArray(dynamicClass) ? dynamicClass.flatMap(cls => {
+            return isObject(cls) ? Object.keys(cls).filter(key => cls[key]) : cls
+          }) : Object.keys(dynamicClass || {}).filter(cls => dynamicClass[cls]))
+        ]),
+        'e-icon'
+      ].join(' ')
 
       const vnodes = []
 
       if (icon) {
         switch (iconType) {
           case 'font-awesome':
-            vnodes.push(<font-awesome-icon icon={icon} class={getClassName()} style={style} />)
+            vnodes.push(<font-awesome-icon icon={icon} class={className} style={style} />)
             break
           case 'svg':
-            vnodes.push(<svg-icon icon-class={icon} class={getClassName()} style={style} />)
+            vnodes.push(<svg-icon icon-class={icon} class={className} style={style} />)
             break
           case 'element-ui':
-            vnodes.push(<i class={`${getClassName()}${icon ? ' ' + icon : ''}`} style={style} />)
+            vnodes.push(<i class={`${className}${icon ? ' ' + icon : ''}`} style={style} />)
             break
           case 'view-ui':
-            vnodes.push(<Icon class={getClassName()} type={icon} style={style} />)
+            vnodes.push(<Icon class={className} type={icon} style={style} />)
             break
           default:
             break
@@ -57,7 +63,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .icon {
+  .e-icon {
     width: 1em;
     height: 1em;
     font-size: 1em;
