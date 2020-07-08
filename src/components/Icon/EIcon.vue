@@ -24,7 +24,7 @@
 
       const style = {
         ...staticStyle,
-        ...dynamicStyle // object syntax
+        ...(isArray(dynamicStyle) ? dynamicStyle.reduce((obj, stl) => ({ ...obj, ...stl }), {}) : isObject(dynamicStyle) ? dynamicStyle : {}) // object syntax
       }
 
       const className = [
