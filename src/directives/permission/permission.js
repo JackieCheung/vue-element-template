@@ -4,7 +4,7 @@ function checkPermission (el, binding) {
   const { value } = binding
   const roles = store.getters && store.getters['user/roles']
 
-  if (value && value instanceof Array && value.length) {
+  if (value && Array.isArray(value) && value.length) {
     const permissibleRoles = value
 
     const hasPermission = roles.some(role => {

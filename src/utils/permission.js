@@ -6,7 +6,7 @@ import store from '@/store'
  * @returns { Boolean } has permission or not
  */
 export function hasPermission (value) {
-  if (value && value instanceof Array && value.length > 0) {
+  if (value && Array.isArray(value) && value.length > 0) {
     const roles = store.getters['user/roles'] && store.getters['user/roles']
     const permissibleRoles = value
     return roles.some(role => {
