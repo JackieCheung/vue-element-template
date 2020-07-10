@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 import Layout from '_v/layout'
 
 // for multilevel nested routes
-// import ParentView from '_c/ParentView'
+// import ParentRouterView from '_c/ParentRouterView'
 
 /* Route Modules */
 import userRoute from './modules/user'
