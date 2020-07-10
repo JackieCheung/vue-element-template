@@ -14,7 +14,7 @@
           action=""
           drag>
           <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__text">将文件拖到此处，或 <em>点击选择文件</em></div>
         </el-upload>
       </div>
       <div
@@ -110,9 +110,9 @@
     <template v-else>
       <div class="progress-container">
         <p style="font-size: 20px; font-weight: bold; margin: 80px auto 60px;">
-          {{ progress.percentage === 100 ? '上传成功！' : '正在上传....' }}</p>
+          {{ progress.percentage === 100 ? '上传成功！' : (progress.status === 'error' ? '上传失败！' : '正在上传....') }}</p>
         <el-progress
-          :color="customProgressColor"
+          :color="progressColor"
           :percentage="progress.percentage"
           :stroke-width="20"
           text-inside></el-progress>
@@ -176,7 +176,8 @@
         },
         progress: {
           processing: false,
-          percentage: 0
+          percentage: 0,
+          status: ''
         },
         fileLoading: false
       }
@@ -209,6 +210,14 @@
           },
           this.$listeners
         )
+      },
+      // 自定义进度条背景色
+      progressColor () {
+        if (this.progress.percentage < 100) {
+          return this.progress.status === 'error' ? '#ff4949' : '#409eff'
+        } else {
+          return '#5cb87a'
+        }
       }
     },
     watch: {
@@ -296,8 +305,11 @@
       // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用
       handleFileChange (file, fileList) {
         this.fileLoading = true
-        this.progress.processing = false
-        this.progress.percentage = 0
+        this.progress = {
+          processing: false,
+          percentage: 0,
+          status: ''
+        }
         if (this.beforeImageRead) {
           if (this.beforeImageRead(file, fileList)) {
             const reader = new FileReader()
@@ -323,14 +335,6 @@
       uploadImage () {
         this.$emit('uploadImage', this.getCropBlob)
         this.$emit('upload-image', this.getCropBlob)
-      },
-      // 自定义进度条背景色
-      customProgressColor (percentage) {
-        if (percentage < 100) {
-          return '#409eff'
-        } else {
-          return '#5cb87a'
-        }
       },
       // 返回
       handleReturnBack () {
@@ -383,6 +387,7 @@
 
     .cropper-container {
       position: relative;
+
       .cropper {
         height: 300px;
       }
