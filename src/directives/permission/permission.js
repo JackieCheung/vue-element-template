@@ -7,9 +7,7 @@ function checkPermission (el, binding) {
   if (value && Array.isArray(value) && value.length) {
     const permissibleRoles = value
 
-    const hasPermission = roles.some(role => {
-      return permissibleRoles.includes(role)
-    })
+    const hasPermission = roles.some(role => permissibleRoles.includes(role))
 
     if (!hasPermission) {
       el.parentNode && el.parentNode.removeChild(el)
