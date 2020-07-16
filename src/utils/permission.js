@@ -9,11 +9,8 @@ export function hasPermission (value) {
   if (value && Array.isArray(value) && value.length > 0) {
     const roles = store.getters['user/roles'] && store.getters['user/roles']
     const permissibleRoles = value
-    return roles.some(role => {
-      return permissibleRoles.includes(role)
-    })
+    return roles.some(role => permissibleRoles.includes(role))
   } else {
-    console.error(`Require roles! Like v-permission="['admin','user']"`)
     return false
   }
 }
