@@ -582,3 +582,76 @@ export const getArrayUnion = (arr1, arr2) => {
 export const getArrayDifference = (arr1, arr2) => {
   return [...arr1, ...arr2].filter(v => arr1.includes(v) && !arr2.includes(v))
 }
+
+/**
+ * @description 获取树形结构数据的指定节点
+ * @param { String } property 指定属性
+ * @param { String } value 指定值
+ * @param { Array } data 树形结构数据
+ * @returns { Object } 指定节点
+ * @author Jackie
+ * @date 2020-06-20 10:10
+ */
+export const getNodeByPropertyRecursively = (property, value, data) => {
+  let node = null
+  for (let i = 0, length = data.length; i < length; i++) {
+    if (data[i][property] === value) {
+      node = data[i]
+    } else if (Array.isArray(data[i].children) && data[i].children.length > 0) {
+      node = getNodeByPropertyRecursively(property, value, data[i].children)
+    }
+    if (node) break
+  }
+  return node
+}
+
+/**
+ * @description 校验密码强度
+ * @param { String } value 密码
+ * @returns { Object } 密码强度（ WEEK - 弱，MEDIUM - 中，STRONG - 强，STRONGEST - 极强 ）
+ * @author Jackie
+ * @date 2020-06-30 10:49
+ */
+export const verifyPasswordStrength = (value) => {
+  let mode = 0
+  // 数字
+  if (/\d/.test(value)) mode++
+  // 小写字母
+  if (/[a-z]/.test(value)) mode++
+  // 大写字母
+  if (/[A-Z]/.test(value)) mode++
+  // 特殊字符
+  if (/\W|_/.test(value)) mode++
+  switch (mode) {
+    case 1:
+      return {
+        value: 'WEEK',
+        label: '弱',
+        level: 1,
+        color: '#ed4014'
+      }
+    case 2:
+      return {
+        value: 'MEDIUM',
+        label: '中',
+        level: 2,
+        color: '#ff9900'
+      }
+    case 3:
+      return {
+        value: 'STRONG',
+        label: '强',
+        level: 3,
+        color: '#19be6b'
+      }
+    case 4:
+      return {
+        value: 'STRONGEST',
+        label: '极强',
+        level: 4,
+        color: '#19be6b'
+      }
+    default:
+      return {}
+  }
+}
