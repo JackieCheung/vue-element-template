@@ -100,6 +100,9 @@
         immediate: true
       }
     },
+    beforeDestroy () {
+      clearInterval(this.timer)
+    },
     methods: {
       // 点击回调
       handleClick () {
