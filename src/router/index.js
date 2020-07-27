@@ -93,7 +93,26 @@ export const asyncRoutes = [
 
 const createRouter = () => new VueRouter({
   mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  // scrollBehavior:
+  // - only available in html5 history mode
+  // - defaults to no scroll behavior
+  // - return false to prevent scroll
+  // - detail: https://github.com/vuejs/vue-router/blob/dev/examples/scroll-behavior/app.js
+  scrollBehavior: (to, from, savedPosition) => {
+    // savedPosition is only available for popstate navigations
+    if (savedPosition && !to.meta.noCache) {
+      return savedPosition
+    } else {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({
+            x: 0,
+            y: 0
+          })
+        }, 0)
+      })
+    }
+  },
   base: process.env.VUE_APP_ROUTER_BASE_PATH,
   routes: constantRoutes
 })
