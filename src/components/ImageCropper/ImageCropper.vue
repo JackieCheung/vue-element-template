@@ -333,8 +333,14 @@
       },
       // 点击上传
       uploadImage () {
-        this.$emit('uploadImage', this.getCropBlob)
-        this.$emit('upload-image', this.getCropBlob)
+        this.$emit('uploadImage', {
+          'getCropBase64': this.getCropBase64,
+          'getCropBlob': this.getCropBlob
+        })
+        this.$emit('upload-image', {
+          'getCropBase64': this.getCropBase64,
+          'getCropBlob': this.getCropBlob
+        })
       },
       // 返回
       handleReturnBack () {
