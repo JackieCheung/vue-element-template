@@ -20,7 +20,7 @@
     },
     render (h, context) {
       const { iconType, icon } = context.props
-      const { style: dynamicStyle, staticStyle, class: dynamicClass, staticClass } = context.data
+      const { attrs, style: dynamicStyle, staticStyle, class: dynamicClass, staticClass } = context.data
 
       const style = {
         ...staticStyle,
@@ -51,7 +51,7 @@
             vnodes.push(<i class={`${className}${icon ? ' ' + icon : ''}`} style={style} />)
             break
           case 'view-ui':
-            vnodes.push(<Icon class={className} type={icon} style={style} />)
+            vnodes.push(<Icon class={className} color={attrs.color} type={icon} size={attrs.size} style={style} />)
             break
           default:
             break
