@@ -20,13 +20,13 @@ function unregisterRoutes () {
 }
 
 // for mock server
-const responseFake = (url, type, respond) => {
+const responseFake = (url, type, resp) => {
   return {
-    url: new RegExp(url),
+    url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
     type: type || 'get',
     response (req, res) {
       console.log('request invoke:' + req.path)
-      res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+      res.json(Mock.mock(resp instanceof Function ? resp(req, res) : resp))
     }
   }
 }
@@ -48,7 +48,6 @@ const setupMocks = app => {
 
 module.exports = app => {
   setupMocks(app)
-  app.use(process.env.VUE_APP_BASE_API, mockRouter)
 
   // watch files, hot reload mock server
   chokidar.watch(mockDir, {
