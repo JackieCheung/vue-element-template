@@ -248,7 +248,7 @@
         this.$emit('imgLoad', status === 'success')
       },
       handleRealTime: debounce(function (obj) {
-        this.$refs.imageCropper.getCropData(data => { this.preview.url = data })
+        this.getCropData(data => { this.preview.url = data })
         this.$emit('realTime', obj)
         this.$emit('real-time', obj)
       }, 400),
@@ -295,7 +295,7 @@
         }
       },
       // 获取截图的 base64 数据
-      getCropBase64Str (fn) {
+      getCropData (fn) {
         this.$refs.imageCropper.getCropData(fn)
       },
       // 获取截图的 blob 数据
@@ -334,11 +334,11 @@
       // 点击上传
       uploadImage () {
         this.$emit('uploadImage', {
-          'getCropBase64Str': this.getCropBase64Str,
+          'getCropBase64Str': this.getCropData,
           'getCropBlob': this.getCropBlob
         })
         this.$emit('upload-image', {
-          'getCropBase64Str': this.getCropBase64Str,
+          'getCropBase64Str': this.getCropData,
           'getCropBlob': this.getCropBlob
         })
       },
