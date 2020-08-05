@@ -80,8 +80,8 @@
       filterAffixTags (routes, basePath = '/') {
         let tags = []
         routes.forEach(route => {
+          const tagPath = path.resolve(basePath, route.path)
           if (route.meta && route.meta.affix) {
-            const tagPath = path.resolve(basePath, route.path)
             tags.push({
               fullPath: tagPath,
               path: tagPath,
@@ -89,9 +89,9 @@
               meta: { ...route.meta }
             })
           }
-          if (route.children) {
-            const tempTags = this.filterAffixTags(route.children, route.path)
-            if (tempTags.length >= 1) {
+          if (route.children && route.children.length) {
+            const tempTags = this.filterAffixTags(route.children, tagPath)
+            if (tempTags.length) {
               tags = [...tags, ...tempTags]
             }
           }
