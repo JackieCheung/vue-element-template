@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-bottom-toolbar" :style="styleObj">
+  <div class="sticky-bottom-toolbar" :style="{ width: `calc(100% - ${paddingLeft})` }">
     <div style="float: left">
       <slot name="title">{{ title }}</slot>
     </div>
@@ -25,10 +25,8 @@
         sidebar: 'app/sidebar',
         device: 'app/device'
       }),
-      styleObj () {
-        return {
-          paddingLeft: this.device === 'desktop' ? this.sidebar.opened ? '210px' : '54px' : '24px'
-        }
+      paddingLeft () {
+        return this.device === 'desktop' ? this.sidebar.opened ? '210px' : '54px' : '0px'
       }
     }
   }
@@ -37,7 +35,6 @@
 <style lang="scss" scoped>
   .sticky-bottom-toolbar {
     position: fixed;
-    width: 100%;
     bottom: 0;
     right: 0;
     height: 60px;
