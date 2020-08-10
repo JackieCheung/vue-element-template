@@ -37,6 +37,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
+    width: 100%;
     height: 60px;
     line-height: 60px;
     box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.03);
