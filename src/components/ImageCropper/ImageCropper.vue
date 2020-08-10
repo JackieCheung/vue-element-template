@@ -3,7 +3,8 @@
     <template v-if="!progress.processing">
       <div
         v-show="step === 0"
-        class="upload-container">
+        class="upload-container"
+      >
         <el-upload
           ref="uploader"
           :multiple="false"
@@ -12,26 +13,30 @@
           :accept="accept"
           :on-change="handleFileChange"
           action=""
-          drag>
+          drag
+        >
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或 <em>点击选择文件</em></div>
         </el-upload>
       </div>
       <div
         v-if="step === 1"
-        class="cropper-container">
+        class="cropper-container"
+      >
         <Spin v-if="fileLoading" fix></Spin>
         <el-row
           :gutter="16"
           type="flex"
-          justify="space-around">
+          justify="space-around"
+        >
           <el-col :span="18">
             <div class="cropper">
               <vue-cropper
                 ref="imageCropper"
                 :img="imgSrc"
                 v-bind="attrs"
-                v-on="listeners"></vue-cropper>
+                v-on="listeners"
+              ></vue-cropper>
             </div>
           </el-col>
           <el-col :span="6">
@@ -41,7 +46,8 @@
                 :src="preview.url"
                 :preview-src-list="[preview.url]"
                 class="image"
-                fit="contain">
+                fit="contain"
+              >
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
@@ -50,7 +56,8 @@
                 :src="preview.url"
                 :preview-src-list="[preview.url]"
                 class="image circle"
-                fit="cover">
+                fit="scale-down"
+              >
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
@@ -65,41 +72,47 @@
               :size="btnSize"
               type="danger"
               plain
-              @click="handleReturnBack">
+              @click="handleReturnBack"
+            >
               返回
             </el-button>
             <el-button
               :size="btnSize"
               type="primary"
               plain
-              @click="changeScale(1)">
+              @click="changeScale(1)"
+            >
               <font-awesome-icon icon="search-plus" />
             </el-button>
             <el-button
               :size="btnSize"
               type="primary"
               plain
-              @click="changeScale(-1)">
+              @click="changeScale(-1)"
+            >
               <font-awesome-icon icon="search-minus" />
             </el-button>
             <el-button
               :size="btnSize"
               type="primary"
               plain
-              @click="rotateLeft">
+              @click="rotateLeft"
+            >
               <font-awesome-icon icon="undo" />
             </el-button>
             <el-button
               :size="btnSize"
               type="primary"
               plain
-              @click="rotateRight">
+              @click="rotateRight"
+            >
               <font-awesome-icon icon="redo" />
             </el-button>
             <el-button
               :size="btnSize"
               type="primary"
-              @click="uploadImage">
+              @click="uploadImage"
+            >
               <font-awesome-icon icon="upload" />
               上传
             </el-button>
@@ -115,7 +128,8 @@
           :color="progressColor"
           :percentage="progress.percentage"
           :stroke-width="20"
-          text-inside></el-progress>
+          text-inside
+        ></el-progress>
       </div>
     </template>
     <div class="dialog-container">
@@ -125,7 +139,8 @@
         title="预览大图"
         width="40%"
         top="10vh"
-        append-to-body>
+        append-to-body
+      >
         <img :src="preview.url" width="100%" alt="">
       </el-dialog>
     </div>
@@ -154,6 +169,11 @@
         type: String,
         default: 'image/jpeg'
       },
+      // 截图框默认是否覆盖原图位置
+      cropBoxCover: {
+        type: Boolean,
+        default: true
+      },
       // 图片读取完成前回调
       beforeImageRead: {
         type: Function,
@@ -170,6 +190,8 @@
         btnSize: 'small',
         step: 0, // 0：选择图片，1：裁剪图片
         imgSrc: '', // 裁剪图片的地址，默认值：空，可选值：url 地址 || base64 || blob || file
+        cropWidth: '',
+        cropHeight: '',
         preview: {
           url: '', // 预览图片的 url 地址
           dialogVisible: false
@@ -246,6 +268,19 @@
         this.fileLoading = false
         this.$emit('img-load', status === 'success')
         this.$emit('imgLoad', status === 'success')
+        // hack
+        if (this.cropBoxCover) {
+          this.$nextTick(_ => {
+            this.$refs.imageCropper.cropW = this.cropWidth
+            this.$refs.imageCropper.cropH = this.cropHeight
+            setTimeout(() => {
+              if (this.$refs.imageCropper.cropH === 300) {
+                this.$refs.imageCropper.cropOffsertY *= -1
+                this.$refs.imageCropper.cropH = this.$refs.imageCropper.cropH - this.$refs.imageCropper.cropOffsertY * 2
+              }
+            }, 0)
+          })
+        }
       },
       handleRealTime: debounce(function (obj) {
         this.getCropData(data => { this.preview.url = data })
@@ -279,8 +314,8 @@
         return this.$refs.imageCropper.getCropAxis()
       },
       // 自动生成截图框函数
-      goAutoCrop () {
-        return this.$refs.imageCropper.goAutoCrop()
+      goAutoCrop (width, height) {
+        return this.$refs.imageCropper.goAutoCrop(width, height)
       },
       // 向右边旋转90度
       rotateRight () {
@@ -310,25 +345,44 @@
           percentage: 0,
           status: ''
         }
+        const fileLoad = (fileRaw) => {
+          const reader = new FileReader()
+          reader.onload = e => {
+            if (this.cropBoxCover) {
+              this.imgSrc = e.target.result
+              // 加载图片获取图片真实宽度和高度
+              const image = new Image()
+              image.onload = () => {
+                const width = image.width
+                const height = image.height
+                // 截图框所在div的高度为300px，宽度为434px
+                const MAX_HEIGHT = 300
+                const MAX_WIDTH = 434
+                if (height > MAX_HEIGHT) {
+                  this.cropHeight = MAX_HEIGHT
+                  this.cropWidth = this.cropHeight / height * width
+                } else {
+                  this.cropHeight = height
+                  this.cropWidth = width
+                }
+                this.cropWidth > MAX_WIDTH ? this.cropWidth = MAX_WIDTH : ''
+              }
+              image.crossOrigin = 'anonymous'
+              image.src = this.imgSrc
+            }
+            this.step = 1
+          }
+          reader.readAsDataURL(fileRaw)
+        }
         if (this.beforeImageRead) {
           if (this.beforeImageRead(file, fileList)) {
-            const reader = new FileReader()
-            reader.onload = e => {
-              this.imgSrc = e.target.result
-              this.step = 1
-            }
-            reader.readAsDataURL(file.raw)
+            fileLoad(file.raw)
           } else {
             this.imgSrc = ''
             this.step = 1
           }
         } else {
-          const reader = new FileReader()
-          reader.onload = e => {
-            this.imgSrc = e.target.result
-            this.step = 1
-          }
-          reader.readAsDataURL(file.raw)
+          fileLoad(file.raw)
         }
       },
       // 点击上传
