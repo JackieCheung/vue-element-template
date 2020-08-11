@@ -19,7 +19,7 @@
       }
     },
     render (h, context) {
-      const { iconType, icon } = context.props
+      const { iconType, icon, className: clsName } = context.props
       const { attrs, style: dynamicStyle, staticStyle, class: dynamicClass, staticClass } = context.data
 
       const style = {
@@ -29,12 +29,13 @@
 
       const className = [
         ...new Set([
+          'e-icon',
           ...(staticClass ? staticClass.split(' ') : []),
           ...(isArray(dynamicClass) ? dynamicClass.flatMap(cls => {
             return isObject(cls) ? Object.keys(cls).filter(key => cls[key]) : cls
-          }) : Object.keys(dynamicClass || {}).filter(cls => dynamicClass[cls]))
-        ]),
-        'e-icon'
+          }) : Object.keys(dynamicClass || {}).filter(cls => dynamicClass[cls])),
+          ...(clsName ? [clsName] : [])
+        ])
       ].join(' ')
 
       const vnodes = []
