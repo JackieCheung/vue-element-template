@@ -655,3 +655,16 @@ export const verifyPasswordStrength = (value) => {
       return {}
   }
 }
+
+/**
+ * @description get the type of specified value
+ * @param { * } value
+ * @returns { String }
+ * @author Jackie
+ * @date 2020-08-12 09:03
+ */
+export const getType = (value) => {
+  // return Object.prototype.toString.call(value).replace(/^\[object (.+)\]$/, '$1').toLowerCase()
+  return Object.prototype.toString.call(value).slice(8, -1).toLowerCase()
+}
+
