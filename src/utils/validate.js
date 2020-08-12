@@ -111,18 +111,6 @@ export const isFunction = (arg) => {
 }
 
 /**
- * @description determine whether the target is the specified type
- * @param { * } target
- * @param { String } type
- * @returns { Boolean }
- * @author Jackie
- * @date 2020-07-20 14:19
- */
-export const isType = (target, type) => {
-  return Object.prototype.toString.call(target).slice(8, -1).toLowerCase() === type.toLowerCase()
-}
-
-/**
  * @description determine whether the current device type is Android
  * @returns { Boolean }
  */
@@ -136,6 +124,15 @@ export const isAndroidDevice = (() => {
  */
 export const isIOSDevice = (() => {
   return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+})()
+
+/**
+ * @description determine whether the current device type is mobile
+ * @returns { Boolean }
+ */
+export const isMobileDevice = (() => {
+  // return 'ontouchstart' in window
+  return !!window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
 })()
 
 /**
