@@ -47,7 +47,7 @@
     z-index: 9;
     transition: all 0.28s;
 
-    &:after {
+    &::after {
       content: "";
       display: block;
       clear: both;
