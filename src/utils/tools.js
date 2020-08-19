@@ -374,7 +374,7 @@ export function removeClass (element, className) {
 export const getExplorer = () => {
   const ua = window.navigator.userAgent
   const isExplorer = (exp) => {
-    return ua.indexOf(exp) > -1
+    return ua.includes(exp)
   }
   if (isExplorer('MSIE')) {
     return 'IE'
