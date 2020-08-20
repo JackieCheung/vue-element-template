@@ -115,7 +115,7 @@ export const isFunction = (arg) => {
  * @returns { Boolean }
  */
 export const isAndroidDevice = (() => {
-  return ['Android', 'Adr'].includes(window.navigator.userAgent)
+  return window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Adr') > -1
 })()
 
 /**
