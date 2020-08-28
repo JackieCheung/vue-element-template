@@ -52,7 +52,7 @@
       },
       async logout () {
         await this.$store.dispatch('user/logout')
-        await this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+        this.$router.push(`/login?redirect=${this.$route.fullPath}`).catch(err => err)
       }
     }
   }

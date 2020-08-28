@@ -14,6 +14,16 @@ router.beforeEach(async (to, from, next) => {
   // start progress bar
   NProgress.start()
 
+  // flatten nested multi-level routes contain 'ParentRouterView'
+  if (to.matched && to.matched.length > 2) {
+    for (let i = 0; i < to.matched.length; i++) {
+      const element = to.matched[i]
+      if (element.components.default.name === 'ParentRouterView') {
+        to.matched.splice(i, 1)
+      }
+    }
+  }
+
   // set page title
   document.title = getPageTitle(to.meta.title)
 
