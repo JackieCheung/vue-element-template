@@ -42,13 +42,18 @@ const state = {
 }
 
 const getters = {
-  routes: state => state.routes
+  routes: state => state.routes,
+  addRoutes: state => state.addRoutes
 }
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
+  },
+  RESET_ROUTES: (state) => {
+    state.routes = []
+    state.addRoutes = []
   }
 }
 
@@ -63,6 +68,12 @@ const actions = {
       }
       commit('SET_ROUTES', accessibleRoutes)
       resolve(accessibleRoutes)
+    })
+  },
+  resetRoutes ({ commit }) {
+    return new Promise(resolve => {
+      commit('RESET_ROUTES')
+      resolve()
     })
   }
 }
