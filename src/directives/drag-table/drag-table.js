@@ -1,30 +1,29 @@
 import { on, off } from '@/utils/tools'
 
+const context = '@@drag-table'
+
 const activateDraggableTable = (el, binding) => {
   const element = el.querySelector('.el-table__body-wrapper')
   let move = false
-  let mouseMoveHandler = null
-  let contextmenuHandler = null
-  // 绑定mousedown事件
-  on(document, 'mousedown', event => {
+  !document[context].mouseDownHandler && (document[context].mouseDownHandler = event => {
     const ev = document.all ? window.event : event
-    // ev.which鼠标右键的值为3，ev.button鼠标右键的值为2
+    // ev.which 鼠标右键的值为 3，ev.button 鼠标右键的值为 2
     const evCode = ev.which || ev.button + 1
     // 鼠标右键
     if (evCode === 3) {
-      // 记录鼠标点击的x坐标和y坐标
+      // 记录鼠标点击的 x 坐标和 y 坐标
       let startX = ev.pageX
       let startY = ev.pageY
       move = false
-      // 绑定mousemove事件
-      on(element, 'mousemove', mouseMoveHandler = (() => {
+      // element 绑定 mousemove 事件
+      on(element, 'mousemove', el[context].mouseMoveHandler = (_ => {
         return event => {
           const ev = document.all ? window.event : event
           ev.preventDefault()
-          // 计算鼠标移动的x轴、y轴偏移量，赋值列表的横向、竖向滚动条
+          // 计算鼠标移动的 x 轴、 y 轴偏移量，赋值列表的横向、竖向滚动条
           element.scrollLeft += startX - ev.pageX
           element.scrollTop += startY - ev.pageY
-          /* 偏移量绝对值大于3即视为有滑动 */
+          /* 偏移量绝对值大于 3 即视为有滑动（防止 click 事件造成轻微滑动） */
           if (Math.abs(startX - ev.pageX) >= 2 || Math.abs(startY - ev.pageY) >= 2) {
             move = true
             element.style.cursor = 'move'
@@ -34,19 +33,20 @@ const activateDraggableTable = (el, binding) => {
           startX = ev.pageX
           startY = ev.pageY
         }
-      })(move)) // 给闭包函数传递外部的局部变量！！
+      })(move))
     }
   })
-  // 松开鼠标（先绑定mouseup事件），取消已绑定mousemove事件
-  on(document, 'mouseup', event => {
+  // document 绑定 mousedown 事件
+  on(document, 'mousedown', document[context].mouseDownHandler)
+  // 松开鼠标（document 绑定 mouseup 事件），取消 element 已绑定的 mousemove 事件
+  !document[context].mouseUpHandler && (document[context].mouseUpHandler = event => {
     const ev = document.all ? window.event : event
     const evCode = ev.which || ev.button + 1
     if (evCode === 3) {
-      off(element, 'mousemove', mouseMoveHandler)
+      off(element, 'mousemove', el[context].mouseMoveHandler)
       element.style.cursor = 'default'
-      // 鼠标右键是否弹出菜单
-      off(document, 'contextmenu', contextmenuHandler)
-      on(document, 'contextmenu', contextmenuHandler = (() => {
+      // 滑动状态下，鼠标右键 mouseup 取消弹出菜单
+      on(document, 'contextmenu', document[context].contextMenuHandler = (_ => {
         return event => {
           if (move) {
             event.preventDefault ? event.preventDefault() : event.returnValue = false
@@ -55,10 +55,24 @@ const activateDraggableTable = (el, binding) => {
       })(move))
     }
   })
+  on(document, 'mouseup', document[context].mouseUpHandler)
 }
 
 export default {
-  bind: function (el, binding) {
+  bind (el) {
+    el[context] = {}
+    document[context] = {}
+  },
+  inserted (el, binding) {
     activateDraggableTable(el, binding)
+  },
+  unbind (el) {
+    off(document, 'mousedown', document[context].mouseDownHandler)
+    off(document, 'mouseup', document[context].mouseUpHandler)
+    off(document, 'contextmenu', document[context].contextMenuHandler)
+    el[context] = null
+    delete el[context]
+    document[context] = null
+    delete document[context]
   }
 }
