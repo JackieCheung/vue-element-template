@@ -12,7 +12,7 @@ let target = null
 const context = '@@resize-table'
 
 const resizeHandler = (element) => {
-  !target[context].mouseMoveHandler && (target[context].mouseMoveHandler = (event) => {
+  !target[context].mouseMoveHandler && (target[context].mouseMoveHandler = event => {
     const boundingClientRect = element.getBoundingClientRect()
 
     const x = event.clientX
@@ -31,11 +31,10 @@ const resizeHandler = (element) => {
 
           const tableBody = element.querySelector('.el-table__body-wrapper')
           const fixedTableBody = element.querySelector('.el-table__fixed-body-wrapper')
-
           const clientRect = tableBody.getBoundingClientRect()
 
           tableBody.style.height = `${target[context].minHeight && y - clientRect.top <= target[context].minHeight ? target[context].minHeight : y - clientRect.top}px`
-          fixedTableBody && (fixedTableBody.style.height = `${tableBody.style.height - 12}px`)
+          fixedTableBody && (fixedTableBody.style.height = `${tableBody.style.height - 17}px`)
         }, 100))
         // bind 'mousemove' event to 'document'
         on(document, 'mousemove', document[context].mouseMoveHandler)
