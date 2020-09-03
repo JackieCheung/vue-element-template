@@ -1,5 +1,5 @@
 /**
- * @description 自定义指令，表格高度自适应
+ * @description 表格高度自适应
  * @author Jackie
  * @date 2020-04-26 17:27
  */

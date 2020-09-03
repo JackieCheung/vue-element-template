@@ -1,5 +1,5 @@
 /**
- * @description custom directive that allow the src of the img tag to access the protected path
+ * @description allow the src of the img tag to access the protected path
  * @author Jackie
  * @date 2020-04-07 01:19
  */
