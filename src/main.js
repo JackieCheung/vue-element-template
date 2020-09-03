@@ -36,6 +36,26 @@ import adaptiveTable from '@/directives/adaptive-table'
 
 Vue.use(adaptiveTable)
 
+import resizeTable from '@/directives/resize-table'
+
+Vue.use(resizeTable)
+
+import immutableSelector from '@/directives/immutable-selector'
+
+Vue.use(immutableSelector)
+
+import clipboard from '@/directives/clipboard'
+
+Vue.use(clipboard)
+
+import permission from '@/directives/permission'
+
+Vue.use(permission)
+
+import wave from '@/directives/wave'
+
+Vue.use(wave)
+
 Vue.component('EIcon', EIcon)
 /**
  * If you don't want to use mock-server
