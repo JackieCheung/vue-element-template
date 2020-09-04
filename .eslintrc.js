@@ -202,7 +202,7 @@ module.exports = {
     }],
     'vue/html-closing-bracket-newline': ['error', {
       'singleline': 'never',
-      'multiline': 'never'
+      'multiline': 'always'
     }],
     'vue/html-self-closing': ['error', {
       'html': {

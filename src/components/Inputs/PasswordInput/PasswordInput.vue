@@ -6,14 +6,16 @@
       :disabled="showPasswordStrength"
       manual
       placement="right"
-      :tabindex="-1">
+      :tabindex="-1"
+    >
       <el-popover
         v-model="popoverVisible"
         :disabled="!showPasswordStrength"
         :popper-class="effect === 'dark' ? 'is-dark' : ''"
         placement="right"
         width="200"
-        trigger="manual">
+        trigger="manual"
+      >
         <div class="py-5" style="font-size: 12px;">
           <P v-if="capsLock" class="mb-10" :style="{ color: effect === 'dark' ? '#5cadff' : '#409EFF' }">大写锁定已打开</P>
           <p :style="`color: ${passwordStrength.color || ''};`">
@@ -24,7 +26,8 @@
             :percentage="(passwordStrength.level || 0) * 25"
             :color="passwordStrength.color"
             :stroke-width="10"
-            :show-text="false"></el-progress>
+            :show-text="false"
+          ></el-progress>
           <p>请至少输入 6 个字符。</p>
         </div>
         <el-input
@@ -33,7 +36,8 @@
           v-model="password"
           v-bind="attrs"
           v-on="listeners"
-          @keyup.native="checkCapslock">
+          @keyup.native="checkCapslock"
+        >
           <template #prefix>
             <slot name="prefix"></slot>
           </template>

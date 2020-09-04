@@ -18,7 +18,7 @@
  ---------------------------------------------
  */
 const cache = {}
-let target = document.documentElement || document.body.parentNode || document.body
+let target = document.querySelector('.app-main .el-scrollbar__wrap') || document.documentElement || document.body.parentNode || document.body
 
 export default {
   // init scrolling element

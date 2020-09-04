@@ -5,7 +5,8 @@
       :page-size.sync="currentPageSize"
       :current-page.sync="currentPageNum"
       v-bind="attrs"
-      v-on="listeners">
+      v-on="listeners"
+    >
     </el-pagination>
   </div>
 </template>

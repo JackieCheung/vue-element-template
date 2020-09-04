@@ -101,17 +101,32 @@ const createRouter = () => new VueRouter({
   // - return false to prevent scroll
   // - detail: https://github.com/vuejs/vue-router/blob/dev/examples/scroll-behavior/app.js
   scrollBehavior: (to, from, savedPosition) => {
+    const scrollbar = document.querySelector('.app-main .el-scrollbar__wrap')
+    if (!from.meta.noCache) {
+      from.meta.savedPosition = (scrollbar || document.documentElement || document.body.parentNode || document.body).scrollTop
+    }
     // savedPosition is only available for popstate navigations
-    if (savedPosition && !to.meta.noCache) {
-      return savedPosition
+    /**
+     * 如果是通过浏览器的前进后退按钮进行路由切换，那么 savedPosition 值不为 null，保持之前的滚动条位置；
+     * 如果是通过 <router-link> 进行路由切换，那么 savedPosition 值为 null ，此时就会回到目标路由页面的指定位置
+     */
+    if (savedPosition) {
+      setTimeout(() => {
+        if (scrollbar) {
+          scrollbar.scrollTop = to.meta.savedPosition || 0
+          savedPosition.y = scrollbar.scrollTop
+        }
+        return savedPosition
+      }, 600) // 对消 transition 的过渡影响
     } else {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
+          scrollbar && (scrollbar.scrollTop = to.meta.savedPosition || 0)
           resolve({
             x: 0,
-            y: 0
+            y: to.meta.savedPosition || 0
           })
-        }, 0)
+        }, 600) // 对消 transition 的过渡影响
       })
     }
   },

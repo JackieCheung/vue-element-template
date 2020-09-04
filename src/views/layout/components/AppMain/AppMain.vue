@@ -2,11 +2,10 @@
   <main class="app-main">
     <el-scrollbar
       class="el-scrollbar-container vertical"
-      wrap-class="el-scrollbar__wrap-vertical">
+      wrap-class="el-scrollbar__wrap-vertical"
+    >
       <div class="app-main__content">
-        <transition name="fade-transform" mode="out-in">
-          <parent-router-view></parent-router-view>
-        </transition>
+        <parent-router-view></parent-router-view>
       </div>
     </el-scrollbar>
   </main>
@@ -14,6 +13,7 @@
 
 <script>
   import ParentRouterView from '_c/ParentRouterView'
+
   export default {
     name: 'AppMain',
     components: {

@@ -8,7 +8,8 @@
         :columns="table.columns"
         :data="table.data"
         v-bind="attrs"
-        v-on="listeners">
+        v-on="listeners"
+      >
         <template v-for="slotName in Object.keys(scopedSlots)" v-slot:[slotName]="{ scope }">
           <slot :name="slotName" :scope="scope"></slot>
         </template>
@@ -19,7 +20,8 @@
         :total="pageInfo.total"
         :page-num.sync="criteriaBuilder.pageBuilder.pageNum"
         :page-size.sync="criteriaBuilder.pageBuilder.pageSize"
-        :auto-scroll="false"></pagination>
+        :auto-scroll="false"
+      ></pagination>
     </div>
   </div>
 </template>

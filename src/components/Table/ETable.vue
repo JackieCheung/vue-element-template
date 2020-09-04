@@ -6,7 +6,8 @@
     :data="data"
     style="width: 100%;"
     v-bind="attrs"
-    v-on="listeners">
+    v-on="listeners"
+  >
     <template v-for="(column, index) in columns">
       <!-- 特殊类型的 column 不可引用 slot-scope ，不然会失去原有渲染 -->
       <el-table-column
@@ -38,14 +39,16 @@
         :filter-placement="column.filterPlacement || 'bottom-start'"
         :filter-multiple="column.filterMultiple || true"
         :filter-method="column.filterMethod"
-        :filtered-value="column.filteredValue">
+        :filtered-value="column.filteredValue"
+      >
       </el-table-column>
       <nested-column
         v-else-if="column.children && column.children.length"
         :key="column.key || column.prop || column.label || index || 'nested_column_' + getUniqueString()"
         :attrs="attrs"
         :column="column"
-        :index="index"></nested-column>
+        :index="index"
+      ></nested-column>
       <el-table-column
         v-else
         :key="column.key || column.prop || 'column_' + getUniqueString()"
@@ -75,7 +78,8 @@
         :filter-placement="column.filterPlacement || 'bottom-start'"
         :filter-multiple="column.filterMultiple || true"
         :filter-method="column.filterMethod"
-        :filtered-value="column.filteredValue">
+        :filtered-value="column.filteredValue"
+      >
         <template slot-scope="scope">
           <render-column
             v-if="column.render && typeof column.render === 'function'"
@@ -83,7 +87,8 @@
             :index="index"
             :render="column.render"
             :row="scope.row"
-            :scope="scope">
+            :scope="scope"
+          >
           </render-column>
           <slot v-else-if="column.slot" :name="column.slot" :scope="scope"></slot>
           <span v-else>{{ (column.formatter && column.formatter(scope.row)) || scope.row[column.key || column.prop] || (scope.row[column.key || column.prop] === 0 ? scope.row[column.key || column.prop] : colEmptyText) }}</span>

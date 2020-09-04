@@ -1,14 +1,17 @@
 <template>
   <div class="router-view">
-    <keep-alive :include="cachedViews">
-      <router-view :key="key" />
-    </keep-alive>
-    <!-- iframe pages -->
-    <component
-      :is="item.name"
-      v-for="item in cachedIframeComponents"
-      v-show="$route.path === item.path"
-      :key="item.name"></component>
+    <transition name="fade-transform" mode="out-in">
+      <keep-alive :include="cachedViews">
+        <router-view :key="key" />
+      </keep-alive>
+      <!-- iframe pages -->
+      <component
+        :is="item.name"
+        v-for="item in cachedIframeComponents"
+        v-show="$route.path === item.path"
+        :key="item.name"
+      ></component>
+    </transition>
   </div>
 </template>
 

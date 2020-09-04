@@ -4,7 +4,8 @@
       v-model="selectedEmail"
       v-bind="attrs"
       style="width: 100%;"
-      v-on="listeners">
+      v-on="listeners"
+    >
       <template #prefix>
         <slot name="prefix"></slot>
       </template>

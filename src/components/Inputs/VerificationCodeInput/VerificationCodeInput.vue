@@ -4,7 +4,8 @@
       v-model="code"
       class="mr-15"
       v-bind="attrs"
-      v-on="listeners">
+      v-on="listeners"
+    >
       <template #prefix>
         <slot name="prefix"></slot>
       </template>
@@ -23,7 +24,8 @@
       :loading="btnLoading"
       :size="attrs.size || 'medium'"
       :style="{ minWidth: '112px', maxHeight: attrs.size === 'large' ? '40px' : '36px' }"
-      @click="handleClick">
+      @click="handleClick"
+    >
       <span v-if="btnLoading">发送中</span>
       <span v-else-if="countdown <= 0">获取验证码</span>
       <span v-else>{{ countdown }}秒后重试</span>

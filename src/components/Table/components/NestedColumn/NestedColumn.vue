@@ -27,14 +27,16 @@
     :filter-placement="column.filterPlacement || 'bottom-start'"
     :filter-multiple="column.filterMultiple || true"
     :filter-method="column.filterMethod"
-    :filtered-value="column.filteredValue">
+    :filtered-value="column.filteredValue"
+  >
     <template v-if="column.children && column.children.length">
       <nested-column
         v-for="(col, i) in column.children"
         :key="col.key || col.prop || col.label || i || 'nested_column_' + getUniqueString()"
         :attrs="attrs"
         :column="col"
-        :index="i">
+        :index="i"
+      >
       </nested-column>
     </template>
     <template slot-scope="scope">
@@ -44,7 +46,8 @@
         :index="index"
         :render="column.render"
         :row="scope.row"
-        :scope="scope">
+        :scope="scope"
+      >
       </render-column>
       <slot v-else-if="column.slot" :name="column.slot" :scope="scope"></slot>
       <span v-else>{{ (column.formatter && column.formatter(scope.row)) || scope.row[column.key || column.prop] || (scope.row[column.key || column.prop] === 0 ? scope.row[column.key || column.prop] : colEmptyText) }}</span>
