@@ -5,9 +5,7 @@
       wrap-class="el-scrollbar__wrap-vertical">
       <div class="app-main__content">
         <transition name="fade-transform" mode="out-in">
-          <keep-alive :include="cachedViews">
-            <router-view :key="key" />
-          </keep-alive>
+          <parent-router-view></parent-router-view>
         </transition>
       </div>
     </el-scrollbar>
@@ -15,15 +13,11 @@
 </template>
 
 <script>
+  import ParentRouterView from '_c/ParentRouterView'
   export default {
     name: 'AppMain',
-    computed: {
-      cachedViews () {
-        return this.$store.state.routerView.cachedViews
-      },
-      key () {
-        return this.$route.path
-      }
+    components: {
+      ParentRouterView
     }
   }
 </script>

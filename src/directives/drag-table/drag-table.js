@@ -23,10 +23,10 @@ const activateDraggableTable = (el, binding) => {
           // 计算鼠标移动的 x 轴、 y 轴偏移量，赋值列表的横向、竖向滚动条
           element.scrollLeft += startX - ev.pageX
           element.scrollTop += startY - ev.pageY
-          /* 偏移量绝对值大于 3 即视为有滑动（防止 click 事件造成轻微滑动） */
-          if (Math.abs(startX - ev.pageX) >= 2 || Math.abs(startY - ev.pageY) >= 2) {
-            move = true
+          /* 偏移量绝对值大于 4 即视为有滑动（防止 click 事件造成轻微滑动） */
+          if (Math.abs(startX - ev.pageX) >= 4 || Math.abs(startY - ev.pageY) >= 4) {
             element.style.cursor = 'move'
+            move = true
             // to do what you want
           }
           // 记录最新的起始坐标
