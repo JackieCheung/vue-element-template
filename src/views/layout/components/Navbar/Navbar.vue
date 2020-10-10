@@ -3,7 +3,7 @@
     <hamburger
       :is-active="sidebar.opened"
       class="hamburger-container"
-      @toggleClick="toggleSideBar"
+      @toggle-click="toggleSideBar"
     ></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
