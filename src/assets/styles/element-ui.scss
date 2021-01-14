@@ -1,33 +1,4 @@
-// some styles related to element-ui
-.el-scrollbar-container {
-  position: relative;
-  height: 100%;
-
-  &.vertical {
-    .el-scrollbar__bar.is-horizontal {
-      display: none;
-    }
-  }
-
-  &.horizontal {
-    .el-scrollbar__bar.is-vertical {
-      display: none;
-    }
-  }
-}
-
-.el-scrollbar__wrap {
-  &-vertical {
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
-
-  &-horizontal {
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
-}
-
+// styles related to element-ui
 .vertical-center-dialog {
   top: 50%;
   transform: translateY(-50%);
@@ -42,4 +13,61 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.el-textarea.el-input--medium {
+  .el-textarea__inner {
+    min-height: 36px !important;
+    line-height: 1.7 !important;
+  }
+}
+
+.el-form--label-justify {
+  .el-form-item__label {
+    text-align: justify;
+    text-align-last: justify;
+  }
+}
+
+.el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-input__inner:focus, .el-form-item.is-error .el-textarea__inner, .el-form-item.is-error .el-textarea__inner:focus, .el-message-box__input input.invalid, .el-message-box__input input.invalid:focus {
+  border-color: #f56c6c !important;
+}
+
+.el-form-item__error {
+  font-size: 13px;
+}
+
+.el-popconfirm__main {
+  margin: 1em 0;
+}
+
+.el-table th {
+  display: table-cell !important;
+  background-color: #f8f8f9;
+}
+
+.el-popover.is-dark {
+  background: #303133;
+  color: #fff;
+  border-color: #303133;
+
+  .popper__arrow {
+    border-right-color: #303133;
+
+    &::after {
+      border-right-color: #303133;
+    }
+  }
+}
+
+.el-select__tags {
+  flex-wrap: unset;
+  overflow: auto;
+  margin-left: 6px;
+
+  & > span {
+    .el-tag:first-child {
+      margin-left: 0;
+    }
+  }
 }
