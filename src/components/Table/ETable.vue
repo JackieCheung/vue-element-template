@@ -12,7 +12,7 @@
       <!-- 特殊类型的 column 不可引用 slot-scope ，不然会失去原有渲染 -->
       <el-table-column
         v-if="specialColumn(column)"
-        :key="column.key || column.prop || 'column_' + getUniqueString()"
+        :key="column.key || column.prop || `column_${index}`"
         :type="column.type || ''"
         :index="column.index"
         :column-key="column.columnKey || column.key || column.prop || ''"
@@ -40,18 +40,17 @@
         :filter-multiple="column.filterMultiple || true"
         :filter-method="column.filterMethod"
         :filtered-value="column.filteredValue"
-      >
-      </el-table-column>
+      ></el-table-column>
       <nested-column
         v-else-if="column.children && column.children.length"
-        :key="column.key || column.prop || column.label || index || 'nested_column_' + getUniqueString()"
+        :key="column.key || column.prop || column.label || `nested-column_${index}`"
         :attrs="attrs"
         :column="column"
         :index="index"
       ></nested-column>
       <el-table-column
         v-else
-        :key="column.key || column.prop || 'column_' + getUniqueString()"
+        :key="column.key || column.prop || `column_${index}`"
         :type="column.type || ''"
         :index="column.index"
         :column-key="column.columnKey || column.key || column.prop || ''"
@@ -80,7 +79,20 @@
         :filter-method="column.filterMethod"
         :filtered-value="column.filteredValue"
       >
-        <template slot-scope="scope">
+        <template v-if="column.headerSlot || column.headerRender" #header="scope">
+          <render-column
+            v-if="column.headerRender && typeof column.headerRender === 'function'"
+            :column="column"
+            :index="index"
+            :render="column.headerRender"
+            :row="scope.row"
+            :scope="scope"
+          ></render-column>
+          <slot v-else :name="column.headerSlot" :scope="scope">
+            {{ column.label }}
+          </slot>
+        </template>
+        <template #default="scope">
           <render-column
             v-if="column.render && typeof column.render === 'function'"
             :column="column"
@@ -88,8 +100,7 @@
             :render="column.render"
             :row="scope.row"
             :scope="scope"
-          >
-          </render-column>
+          ></render-column>
           <slot v-else-if="column.slot" :name="column.slot" :scope="scope"></slot>
           <span v-else>{{ (column.formatter && column.formatter(scope.row)) || scope.row[column.key || column.prop] || (scope.row[column.key || column.prop] === 0 ? scope.row[column.key || column.prop] : colEmptyText) }}</span>
         </template>
@@ -104,7 +115,6 @@
 <script>
   import RenderColumn from './components/RenderColumn'
   import NestedColumn from './components/NestedColumn'
-  import { createUniqueString } from '@/utils/tools'
 
   export default {
     name: 'ETable',
@@ -155,9 +165,6 @@
     methods: {
       specialColumn (column) {
         return ['selection', 'index'].includes(column.type)
-      },
-      getUniqueString () {
-        return createUniqueString()
       }
     }
   }

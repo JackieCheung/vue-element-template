@@ -33,8 +33,8 @@
         <el-input
           ref="passwordInput"
           slot="reference"
-          v-model="password"
           v-bind="attrs"
+          v-model="password"
           v-on="listeners"
           @keyup.native="checkCapslock"
         >
@@ -136,7 +136,7 @@
       // 检查大写锁定是否打开
       checkCapslock (event) {
         const { key, shiftKey } = event
-        this.capsLock = (key && key.length === 1) && (shiftKey && key >= 'a' && key <= 'z') || (!shiftKey && key >= 'A' && key <= 'Z')
+        this.capsLock = (key && key.length === 1) && ((shiftKey && key >= 'a' && key <= 'z') || (!shiftKey && key >= 'A' && key <= 'Z'))
         key === 'CapsLock' && this.capsLock && (this.capsLock = false)
       }
     }

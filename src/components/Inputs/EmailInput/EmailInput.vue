@@ -18,7 +18,7 @@
       <template #append>
         <slot name="append"></slot>
       </template>
-      <template slot-scope="{ item }">
+      <template #default="{ item }">
         <slot :item="item"></slot>
       </template>
     </el-autocomplete>

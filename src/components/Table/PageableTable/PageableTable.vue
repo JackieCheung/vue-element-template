@@ -4,13 +4,13 @@
       <Spin v-if="table.loading" fix></Spin>
       <e-table
         ref="eTable"
-        v-drag-table
+        v-drag-table="{ draggable }"
         :columns="table.columns"
         :data="table.data"
         v-bind="attrs"
         v-on="listeners"
       >
-        <template v-for="slotName in Object.keys(scopedSlots)" v-slot:[slotName]="{ scope }">
+        <template v-for="slotName in Object.keys(scopedSlots)" #[slotName]="{ scope }">
           <slot :name="slotName" :scope="scope"></slot>
         </template>
       </e-table>
@@ -90,6 +90,10 @@
       scrollTop: {
         type: Number,
         default: 0
+      },
+      draggable: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -124,11 +128,10 @@
         }
       },
       listeners () {
-        const _this = this
         return {
           ...{
             'filter-change': filter => {
-              this.$emit('update:filter', { ..._this.criteriaBuilder.filter, ...filter })
+              this.$emit('update:filter', { ...this.criteriaBuilder.filter, ...filter })
             },
             'sort-change': ({ column, prop, order }) => {
               const classNameMap = {
@@ -188,7 +191,7 @@
       },
       criteriaBuilder: {
         handler: debounce(function (newValue) {
-          this.autoLoad && (typeof newValue.filter === 'undefined' || newValue.filter && JSON.stringify(newValue.filter) !== '{}') ? this.renderTable(newValue) : ''
+          this.autoLoad && (typeof newValue.filter === 'undefined' || newValue.filter && JSON.stringify(newValue.filter) !== '{}') && this.renderTable(newValue)
         }, 100),
         deep: true
       },
@@ -234,9 +237,9 @@
         }).finally(() => {
           this.table.loading = false
           this.$nextTick(() => {
-            this.activateScroll ? scrollTo(document.querySelector('.app-main .el-scrollbar__wrap'), this.scrollTop || 0, 800) : ''
+            this.activateScroll && scrollTo(document.querySelector('.app-main .el-scrollbar__wrap'), this.scrollTop || 0, 800)
+            this.$emit('load-complete')
           })
-          this.$emit('load-complete')
         })
       },
       // 重载表格

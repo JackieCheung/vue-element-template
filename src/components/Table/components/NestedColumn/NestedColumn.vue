@@ -1,6 +1,6 @@
 <template>
   <el-table-column
-    :key="column.key || column.prop || column.label || index || 'column_' + getUniqueString()"
+    :key="column.key || column.prop || column.label || `column_${index}`"
     :type="column.type || ''"
     :index="column.index"
     :column-key="column.columnKey || column.key || column.prop || ''"
@@ -32,14 +32,18 @@
     <template v-if="column.children && column.children.length">
       <nested-column
         v-for="(col, i) in column.children"
-        :key="col.key || col.prop || col.label || i || 'nested_column_' + getUniqueString()"
+        :key="col.key || col.prop || col.label || `nested-column_${index}_${i}`"
         :attrs="attrs"
         :column="col"
-        :index="i"
-      >
-      </nested-column>
+        :index="`${index}_${i}`"
+      ></nested-column>
     </template>
-    <template slot-scope="scope">
+    <template v-if="column.headerSlot" #header="scope">
+      <slot :name="column.headerSlot" :scope="scope">
+        {{ column.label }}
+      </slot>
+    </template>
+    <template #default="scope">
       <render-column
         v-if="column.render && typeof column.render === 'function'"
         :column="column"
@@ -47,8 +51,7 @@
         :render="column.render"
         :row="scope.row"
         :scope="scope"
-      >
-      </render-column>
+      ></render-column>
       <slot v-else-if="column.slot" :name="column.slot" :scope="scope"></slot>
       <span v-else>{{ (column.formatter && column.formatter(scope.row)) || scope.row[column.key || column.prop] || (scope.row[column.key || column.prop] === 0 ? scope.row[column.key || column.prop] : colEmptyText) }}</span>
     </template>
@@ -57,7 +60,6 @@
 
 <script>
   import RenderColumn from '../RenderColumn'
-  import { createUniqueString } from '@/utils/tools'
 
   export default {
     name: 'NestedColumn',
@@ -70,7 +72,7 @@
         default: null
       },
       index: {
-        type: Number,
+        type: [Number, String],
         default: 0
       },
       colEmptyText: {
@@ -82,11 +84,6 @@
       attrs: {
         type: Object,
         default: null
-      }
-    },
-    methods: {
-      getUniqueString () {
-        return createUniqueString()
       }
     }
   }
