@@ -116,7 +116,10 @@ const createRouter = () => new VueRouter({
           scrollbar.scrollTop = to.meta.savedPosition || 0
           savedPosition.y = scrollbar.scrollTop
         }
-        return savedPosition
+        return {
+          ...savedPosition,
+          behavior: 'smooth'
+        }
       }, 600) // 对消 transition 的过渡影响
     } else {
       return new Promise((resolve, reject) => {
@@ -124,7 +127,8 @@ const createRouter = () => new VueRouter({
           scrollbar && (scrollbar.scrollTop = to.meta.savedPosition || 0)
           resolve({
             x: 0,
-            y: to.meta.savedPosition || 0
+            y: to.meta.savedPosition || 0,
+            behavior: 'smooth'
           })
         }, 600) // 对消 transition 的过渡影响
       })

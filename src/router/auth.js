@@ -3,7 +3,7 @@ import store from '@/store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import { getToken } from '@/utils/token' // get token from localstorage
+import { getAccessToken } from '@/utils/token' // get token from sessionStorage
 import { getPageTitle } from '@/utils/tools'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
@@ -28,16 +28,16 @@ router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
-  const hasToken = getToken()
+  const hasAccessToken = getAccessToken()
 
-  if (hasToken) {
+  if (hasAccessToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getUserInfo
-      const hasRoles = store.getters['user/roles'] && store.getters['user/roles'].length > 0
+      const hasRoles = store.getters['user/roles'] && store.getters['user/roles'].length
       if (hasRoles) {
         // when has roles it means that all accessible routes have been generated
         // if visit a page without permission, it will automatically enter the 404 page
@@ -63,20 +63,20 @@ router.beforeEach(async (to, from, next) => {
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
-          Message.error(error.message || '登录失败，请重新登录！')
-          next(`/login?redirect=${to.path}`)
+          Message.error(error.message || '获取用户信息失败，请重新登录！')
+          next(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
           NProgress.done()
         }
       }
     }
   } else {
     /* has no token*/
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (whiteList.includes(to.path)) {
       // in the free login whitelist, go directly
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page
-      next(`/login?redirect=${to.path}`)
+      next(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
       NProgress.done()
     }
   }
