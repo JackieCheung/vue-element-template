@@ -1,11 +1,13 @@
-import { on, off } from '@/utils/tools'
+import { on, off, generateGuid } from '@/utils/tools'
 
 const context = '@@drag-table'
 
 const activateDraggableTable = (el, binding) => {
+  if (binding.value && !binding.value.draggable) return
   const element = el.querySelector('.el-table__body-wrapper')
   let move = false
-  !document[context].mouseDownHandler && (document[context].mouseDownHandler = event => {
+  if (!document[el.scoped]) document[el.scoped] = {}
+  !document[el.scoped].mouseDownHandler && (document[el.scoped].mouseDownHandler = event => {
     const ev = document.all ? window.event : event
     // ev.which 鼠标右键的值为 3，ev.button 鼠标右键的值为 2
     const evCode = ev.which || ev.button + 1
@@ -16,7 +18,8 @@ const activateDraggableTable = (el, binding) => {
       let startY = ev.pageY
       move = false
       // element 绑定 mousemove 事件
-      on(element, 'mousemove', el[context].mouseMoveHandler = (_ => {
+      if (!el[el.scoped]) el[el.scoped] = {}
+      on(element, 'mousemove', el[el.scoped].mouseMoveHandler = (_ => {
         return event => {
           const ev = document.all ? window.event : event
           ev.preventDefault()
@@ -37,16 +40,16 @@ const activateDraggableTable = (el, binding) => {
     }
   })
   // document 绑定 mousedown 事件
-  on(document, 'mousedown', document[context].mouseDownHandler)
+  on(document, 'mousedown', document[el.scoped].mouseDownHandler)
   // 松开鼠标（document 绑定 mouseup 事件），取消 element 已绑定的 mousemove 事件
-  !document[context].mouseUpHandler && (document[context].mouseUpHandler = event => {
+  !document[el.scoped].mouseUpHandler && (document[el.scoped].mouseUpHandler = event => {
     const ev = document.all ? window.event : event
     const evCode = ev.which || ev.button + 1
     if (evCode === 3) {
-      off(element, 'mousemove', el[context].mouseMoveHandler)
+      off(element, 'mousemove', el[el.scoped].mouseMoveHandler)
       element.style.cursor = 'default'
       // 滑动状态下，鼠标右键 mouseup 取消弹出菜单
-      on(document, 'contextmenu', document[context].contextMenuHandler = (_ => {
+      on(document, 'contextmenu', document[el.scoped].contextMenuHandler = (_ => {
         return event => {
           if (move) {
             event.preventDefault ? event.preventDefault() : event.returnValue = false
@@ -55,24 +58,27 @@ const activateDraggableTable = (el, binding) => {
       })(move))
     }
   })
-  on(document, 'mouseup', document[context].mouseUpHandler)
+  on(document, 'mouseup', document[el.scoped].mouseUpHandler)
 }
 
 export default {
   bind (el) {
-    el[context] = {}
-    document[context] = {}
+    !el.scoped && (el.scoped = context + generateGuid())
+    el[el.scoped] = {}
+    document[el.scoped] = {}
   },
   inserted (el, binding) {
     activateDraggableTable(el, binding)
   },
   unbind (el) {
-    off(document, 'mousedown', document[context].mouseDownHandler)
-    off(document, 'mouseup', document[context].mouseUpHandler)
-    off(document, 'contextmenu', document[context].contextMenuHandler)
-    el[context] = null
-    delete el[context]
-    document[context] = null
-    delete document[context]
+    if (document[el.scoped]) {
+      off(document, 'mousedown', document[el.scoped].mouseDownHandler)
+      off(document, 'mouseup', document[el.scoped].mouseUpHandler)
+      off(document, 'contextmenu', document[el.scoped].contextMenuHandler)
+      document[el.scoped] = null
+      delete document[el.scoped]
+    }
+    el[el.scoped] = null
+    delete el[el.scoped]
   }
 }
