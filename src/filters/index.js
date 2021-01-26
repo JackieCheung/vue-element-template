@@ -71,8 +71,7 @@ export function numberFormatter (num, digits) {
  * @returns { String }
  */
 export function toThousandFilter (num, digit = 2) {
-  // return (+num || 0).toFixed(digit).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
-  return (+num || 0).toFixed(digit).toString().replace(/\B(?=(\d{3})+\b)/g, ',')
+  return (+num || 0).toFixed(digit).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
 
 /**
