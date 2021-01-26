@@ -1,45 +1,63 @@
 import { login, logout, getUserInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/token'
+import {
+  getAccessToken, setAccessToken, removeAccessToken,
+  getRefreshToken, setRefreshToken, removeRefreshToken
+} from '@/utils/token'
 import router, { resetRouter } from '@/router'
 
 const state = {
-  token: getToken(),
+  accessToken: getAccessToken(),
+  refreshToken: getRefreshToken(),
   roles: [],
   userInfo: {}
 }
 
 const getters = {
-  token: state => state.token,
+  accessToken: state => state.accessToken,
+  refreshToken: state => state.refreshToken,
   roles: state => state.roles,
   userInfo: state => state.userInfo
 }
 
 const mutations = {
-  SET_TOKEN: (state, token) => {
-    state.token = token
+  SET_ACCESS_TOKEN: (state, accessToken) => {
+    state.accessToken = accessToken
+  },
+  SET_REFRESH_TOKEN: (state, refreshToken) => {
+    state.refreshToken = refreshToken
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
   SET_USER_INFO: (state, userInfo) => {
-    state.userInfo = userInfo
+    state.userInfo = {
+      ...userInfo,
+      avatar: userInfo.avatar ? userInfo.avatar + '?v=' + +new Date() : ''
+    }
   }
 }
 
 const actions = {
   // user login
-  // userInfo: 登录信息
-  login ({ commit }, userInfo) {
-    const { username, password } = userInfo
+  // loginInfo: 登录信息
+  login ({ commit }, loginInfo) {
+    const { username, password } = loginInfo
     return new Promise((resolve, reject) => {
       login({
         username: username.trim(),
         password: password
       }).then(response => {
         if (response.code === 0) {
-          const { token } = response.data
-          commit('SET_TOKEN', token)
-          setToken(token)
+          const {
+            access_token: accessToken,
+            refresh_token: refreshToken
+          } = response.data
+
+          commit('SET_ACCESS_TOKEN', accessToken)
+          setAccessToken(accessToken)
+
+          commit('SET_REFRESH_TOKEN', refreshToken)
+          setRefreshToken(refreshToken)
         }
         resolve(response)
       }).catch(error => {
@@ -49,7 +67,7 @@ const actions = {
   },
 
   // get user info
-  getUserInfo ({ commit, state }) {
+  getUserInfo ({ commit }) {
     return new Promise((resolve, reject) => {
       getUserInfo().then(res => {
         const { code, data, msg } = res
@@ -75,17 +93,23 @@ const actions = {
   },
 
   // user logout
-  logout ({ commit, state, dispatch }) {
+  logout ({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
       logout().then(() => {
-        commit('SET_TOKEN', '')
+        commit('SET_ACCESS_TOKEN', '')
+        commit('SET_REFRESH_TOKEN', '')
         commit('SET_ROLES', [])
 
-        removeToken()
+        removeAccessToken()
+        removeRefreshToken()
+
         resetRouter()
 
         // reset visited views and cached views
         dispatch('routerView/delAllViews', null, { root: true })
+
+        // reset routes
+        dispatch('permission/resetRoutes', null, { root: true })
 
         resolve()
       }).catch(error => {
@@ -94,12 +118,25 @@ const actions = {
     })
   },
 
+  // update token
+  updateToken ({ commit }, { accessToken, refreshToken }) {
+    commit('SET_ACCESS_TOKEN', accessToken)
+    setAccessToken(accessToken)
+
+    commit('SET_REFRESH_TOKEN', refreshToken)
+    setRefreshToken(refreshToken)
+  },
+
   // remove token
   resetToken ({ commit }) {
     return new Promise(resolve => {
-      commit('SET_TOKEN', '')
+      commit('SET_ACCESS_TOKEN', '')
+      commit('SET_REFRESH_TOKEN', '')
       commit('SET_ROLES', [])
-      removeToken()
+
+      removeAccessToken()
+      removeRefreshToken()
+
       resolve()
     })
   },
@@ -109,7 +146,7 @@ const actions = {
     const token = role + '-token'
 
     commit('SET_TOKEN', token)
-    setToken(token)
+    setAccessToken(token)
 
     const { roles } = await dispatch('getUserInfo')
 
@@ -123,6 +160,14 @@ const actions = {
 
     // reset visited views and cached views
     dispatch('routerView/delAllViews', null, { root: true })
+  },
+
+  // update user info
+  updateUserInfo ({ commit, state }, userInfo) {
+    commit('SET_USER_INFO', {
+      ...state.userInfo,
+      ...userInfo
+    })
   }
 }
 

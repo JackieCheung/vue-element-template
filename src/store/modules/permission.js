@@ -18,16 +18,17 @@ function hasPermission (roles, route) {
  * @description filter asynchronous routing tables by recursion
  * @param { Array } routes
  * @param { Array } roles
+ * @param { Function } filterFn
  * @returns { Array } permissible routes
  */
-export function filterAsyncRoutes (routes, roles) {
+export function filterAsyncRoutes (routes, roles, filterFn = null) {
   const res = []
 
   routes.forEach(route => {
     const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
+    if (hasPermission(roles, tmp) && (!filterFn || filterFn(route))) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
+        tmp.children = filterAsyncRoutes(tmp.children, roles, filterFn)
       }
       res.push(tmp)
     }
