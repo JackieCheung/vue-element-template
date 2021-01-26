@@ -156,7 +156,7 @@
       closeAllTags (view) {
         this.$store.dispatch('routerView/delAllViews').then(({ visitedViews }) => {
           if (this.affixTags.some(tag => tag.path === view.path)) {
-            this.$router.push(view)
+            this.$router.push(view).catch(err => err)
             return
           }
           this.toLastView(visitedViews, view)

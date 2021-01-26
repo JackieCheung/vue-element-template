@@ -58,40 +58,40 @@
         if (onlyOneChild && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !this.item.alwaysShow) {
           if (onlyOneChild.meta) {
             appLink = <app-link to={this.resolvePath(onlyOneChild.path)}>
-              <el-menu-item index={this.resolvePath(onlyOneChild.path)}
-                            class={{ 'submenu-title-noDropdown': !this.isNest }}>
-                <menu-item icon-type={onlyOneChild.meta.iconType}
-                           icon={onlyOneChild.meta.icon || (this.item.meta && this.item.meta.icon)}
-                           title={onlyOneChild.meta.title}></menu-item>
-              </el-menu-item>
-            </app-link>
+            <el-menu-item index={this.resolvePath(onlyOneChild.path)}
+                          class={{ 'submenu-title-noDropdown': !this.isNest }}>
+              <menu-item icon-type={onlyOneChild.meta.iconType}
+                         icon={onlyOneChild.meta.icon || (this.item.meta && this.item.meta.icon)}
+                         title={onlyOneChild.meta.title}></menu-item>
+            </el-menu-item>
+          </app-link>
           }
         } else {
           sideBarItem = <el-submenu ref='subMenu' index={this.resolvePath(this.item.path)} popper-append-to-body
-                                    nativeOnClick={event => (event.target.parentNode === event.currentTarget || event.target.parentNode.parentNode === event.currentTarget) && this.item.redirect && this.item.redirect !== 'noRedirect' ? this.$router.push(this.item.redirect).catch(err => err) : ''}>
-            <template slot='title'>
-              {this.item.meta ? <menu-item icon-type={this.item.meta.iconType} icon={this.item.meta.icon}
-                                           title={this.item.meta.title}></menu-item> : ''}
-            </template>
-            {
-              this.item.children.map(child => {
-                return <sidebar-item
-                  key={child.path}
-                  is-nest={true}
-                  item={child}
-                  base-path={this.resolvePath(child.path)}
-                  class='nest-menu'></sidebar-item>
-              })
-            }
-          </el-submenu>
+                                  nativeOnClick={event => (event.target.parentNode === event.currentTarget || event.target.parentNode.parentNode === event.currentTarget) && this.item.redirect && this.item.redirect !== 'noRedirect' ? this.$router.push(this.item.redirect).catch(err => err) : ''}>
+          <template slot='title'>
+            {this.item.meta ? <menu-item icon-type={this.item.meta.iconType} icon={this.item.meta.icon}
+                                         title={this.item.meta.title}></menu-item> : ''}
+          </template>
+          {
+            this.item.children.map(child => {
+              return <sidebar-item
+                key={child.path}
+                is-nest={true}
+                item={child}
+                base-path={this.resolvePath(child.path)}
+                class='nest-menu'></sidebar-item>
+            })
+          }
+        </el-submenu>
         }
       }
       return (
-        <div>
-          {appLink}
-          {sideBarItem}
-        </div>
-      )
+      <div>
+        {appLink}
+        {sideBarItem}
+      </div>
+    )
     }
   }
 </script>

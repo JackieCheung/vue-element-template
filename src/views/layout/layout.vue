@@ -13,9 +13,9 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { AppMain, Navbar, Sidebar, TagsView } from './components'
   import resize from './mixins/resize-handler'
-  import { mapGetters } from 'vuex'
 
   export default {
     name: 'Layout',

@@ -10,14 +10,27 @@
       <template v-if="device !== 'mobile'">
         <screenfull id="screenfull" class="right-menu-item hover-effect"></screenfull>
       </template>
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
         <div class="avatar-wrapper">
           <img :src="avatar" class="user-avatar" alt="avatar" />
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
+          <!--          <router-link :to="{ name: 'Profile' }">-->
+          <!--            <el-dropdown-item>-->
+          <!--              <e-icon-->
+          <!--                icon="user-alt"-->
+          <!--                style="margin-right: 2px; width: 12px; height: 12px; font-size: 12px;"-->
+          <!--              ></e-icon>-->
+          <!--              个人中心-->
+          <!--            </el-dropdown-item>-->
+          <!--          </router-link>-->
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <e-icon
+              icon="sign-out-alt"
+              style="margin-right: 2px; width: 13px; height: 13px; font-size: 13px;"
+            ></e-icon>
+            Logout
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -44,7 +57,7 @@
         'device': 'app/device'
       }),
       avatar () {
-        return this.$store.getters['user/avatar'] || require('@/assets/images/logo.png')
+        return this.$store.getters['user/userInfo']['avatar'] || require('@/assets/images/logo.png')
       }
     },
     methods: {
@@ -53,7 +66,8 @@
       },
       async logout () {
         await this.$store.dispatch('user/logout')
-        this.$router.push(`/login?redirect=${this.$route.fullPath}`).catch(err => err)
+        // await this.$router.push(`/login?redirect=${encodeURIComponent(this.$route.fullPath)}`)
+        this.$router.push('/login').catch(err => err)
       }
     }
   }

@@ -1,13 +1,10 @@
 <template>
   <main class="app-main">
-    <el-scrollbar
-      class="el-scrollbar-container vertical"
-      wrap-class="el-scrollbar__wrap-vertical"
-    >
+    <el-scrollbar-container vertical>
       <div class="app-main__content">
         <parent-router-view></parent-router-view>
       </div>
-    </el-scrollbar>
+    </el-scrollbar-container>
   </main>
 </template>
 

@@ -42,7 +42,7 @@
         let lastTag = null
 
         // find first tag and last tag
-        if (tagList.length > 0) {
+        if (tagList.length) {
           firstTag = tagList[0]
           lastTag = tagList[tagList.length - 1]
         }
