@@ -21,42 +21,18 @@ import './vendors/lodash' // lodash
 import './vendors/element-ui' // Element UI
 import './vendors/view-ui' // View UI
 import EIcon from './components/Icon'
+import ElScrollbarContainer from '@/components/ElScrollbarContainer'
 
 Vue.use(Element)
 
-import authImage from '@/directives/auth-image'
-
-Vue.use(authImage)
-
-import dragTable from '@/directives/drag-table'
-
-Vue.use(dragTable)
-
-import adaptiveTable from '@/directives/adaptive-table'
-
-Vue.use(adaptiveTable)
-
-import resizeTable from '@/directives/resize-table'
-
-Vue.use(resizeTable)
-
-import immutableSelector from '@/directives/immutable-selector'
-
-Vue.use(immutableSelector)
-
-import clipboard from '@/directives/clipboard'
-
-Vue.use(clipboard)
-
-import permission from '@/directives/permission'
-
-Vue.use(permission)
-
-import wave from '@/directives/wave'
-
-Vue.use(wave)
-
 Vue.component('EIcon', EIcon)
+
+Vue.component('ElScrollbarContainer', ElScrollbarContainer)
+
+// registers customized directives
+import directives from '@/directives'
+Vue.use(directives)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJS for mock api
@@ -70,21 +46,23 @@ Vue.component('EIcon', EIcon)
 //   mockXHR()
 // }
 
-// register global utility filters
+// registers global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
-// register an event hub
+// registers an event hub
 Vue.prototype.$eventHub = Vue.prototype.$eventHub || new Vue()
 
-// register console.log
+// registers console.log
 Vue.prototype.$log = Vue.prototype.$log || console.log
 
 // assert
 Window.prototype.assert = Window.prototype.assert || console.assert || function assert (condition, msg) {
   if (!condition) throw new Error(msg || 'Assert Error!')
 }
+
+// document.addEventListener('touchstart', event => {})
 
 Vue.config.productionTip = false
 
