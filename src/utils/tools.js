@@ -130,8 +130,9 @@ export function byteLength (str) {
   let s = str.length
   for (let i = str.length - 1; i >= 0; i--) {
     const code = str.charCodeAt(i)
-    if (code > 0x7f && code <= 0x7ff) s++
-    else if (code > 0x7ff && code <= 0xffff) s += 2
+    if (code > 0x7f && code <= 0x7ff) {
+      s++
+    } else if (code > 0x7ff && code <= 0xffff) s += 2
     if (code >= 0xDC00 && code <= 0xDFFF) i--
   }
   return s
@@ -205,27 +206,6 @@ export function objectMerge (target, source) {
     }
   })
   return target
-}
-
-/**
- * @description toggle class of the html element
- * @param { HTMLElement } element
- * @param { String } className
- */
-export function toggleClass (element, className) {
-  if (!element || !className) {
-    return
-  }
-  let classString = element.className
-  const nameIndex = classString.indexOf(className)
-  if (nameIndex === -1) {
-    classString += '' + className
-  } else {
-    classString =
-      classString.substr(0, nameIndex) +
-      classString.substr(nameIndex + className.length)
-  }
-  element.className = classString
 }
 
 /**
@@ -352,6 +332,27 @@ export function removeClass (element, className) {
   }
 }
 
+/**
+ * @description toggle class of the html element
+ * @param { HTMLElement } element
+ * @param { String } className
+ */
+export function toggleClass (element, className) {
+  if (!element || !className) {
+    return
+  }
+  let classString = element.className
+  const nameIndex = classString.indexOf(className)
+  if (nameIndex === -1) {
+    classString += '' + className
+  } else {
+    classString =
+      classString.substr(0, nameIndex) +
+      classString.substr(nameIndex + className.length)
+  }
+  element.className = classString
+}
+
 // /**
 //  * @description trigger the class of the html element
 //  * @param { HTMLElement } element
@@ -473,8 +474,8 @@ export const getBase64FromImage = image => {
 export const asyncAction = asyncFunc => {
   return asyncFunc.then(res => {
     return [res, null]
-  }).catch(err => {
-    return [null, err]
+  }).catch(error => {
+    return [null, error]
   })
 }
 
@@ -594,10 +595,10 @@ export const getArrayDifference = (arr1, arr2) => {
  */
 export const getNodeByPropertyRecursively = (property, value, data) => {
   let node = null
-  for (let i = 0, length = data.length; i < length; i++) {
+  for (let i = 0; i < data.length; i++) {
     if (data[i][property] === value) {
       node = data[i]
-    } else if (Array.isArray(data[i].children) && data[i].children.length > 0) {
+    } else if (Array.isArray(data[i].children) && data[i].children.length) {
       node = getNodeByPropertyRecursively(property, value, data[i].children)
     }
     if (node) break
@@ -613,6 +614,9 @@ export const getNodeByPropertyRecursively = (property, value, data) => {
  * @date 2020-06-30 10:49
  */
 export const verifyPasswordStrength = (value) => {
+  if (value.length < 6) {
+    return null
+  }
   let mode = 0
   // 数字
   if (/\d/.test(value)) mode++
@@ -657,6 +661,36 @@ export const verifyPasswordStrength = (value) => {
 }
 
 /**
+ * @description 下载文件
+ * @param { String } url 下载地址
+ * @param { String } name 文件名
+ * @param { Function } cb 回调函数
+ * @author Jackie
+ * @date 2020-08-07 08:28
+ */
+export const downloadFile = (url, name, cb) => {
+  // const FileSaver = require('file-saver')
+  // const xhr = new XMLHttpRequest()
+  // xhr.open('GET', url, true)
+  // xhr.responseType = 'blob'
+  // xhr.onload = _ => {
+  //   const file = new Blob([xhr.response])
+  //   FileSaver.saveAs(file, name)
+  //   cb && cb()
+  // }
+  // xhr.send()
+  const a = document.createElement('a')
+  a.style.display = 'none'
+  a.href = url
+  a.target = '_blank'
+  a.download = name
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  cb && cb()
+}
+
+/**
  * @description get the type of specified value
  * @param { * } value
  * @returns { String }
@@ -667,4 +701,3 @@ export const getType = (value) => {
   // return Object.prototype.toString.call(value).replace(/^\[object (.+)\]$/, '$1').toLowerCase()
   return Object.prototype.toString.call(value).slice(8, -1).toLowerCase()
 }
-

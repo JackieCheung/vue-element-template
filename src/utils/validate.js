@@ -107,7 +107,7 @@ export const isObject = (arg) => {
  * @returns { Boolean }
  */
 export const isFunction = (arg) => {
-  return Object.prototype.toString.apply(arg) === '[object Function]'
+  return Object.prototype.toString.call(arg) === '[object Function]'
 }
 
 /**
@@ -152,6 +152,24 @@ export const isAlipayBrowser = (() => {
 })()
 
 /**
+ * @description 用户名是不少于6位的字母和数字组合
+ * @param { String } username 用户名
+ * @returns { Boolean }
+ */
+export function validUsername (username) {
+  return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/.test(username)
+}
+
+/**
+ * @description 密码不能少于6位
+ * @param { String } password 密码
+ * @returns { Boolean }
+ */
+export function validPassword (password) {
+  return password.length >= 6
+}
+
+/**
  * @description determine whether the scroll bar inside the element is scrolled to the bottom of the element, true if scrollTop + clientHeight === scrollHeight
  * @param { HTMLElement } element
  * @returns { Boolean }
@@ -174,6 +192,39 @@ export function isScrolledToBottom (element) {
  */
 export function validIdCard (idCardNo) {
   return /(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0\d|10|11|12)([0-2]\d|30|31)\d{3}[\dXx]$)/.test(idCardNo)
+}
+
+/**
+ * @description 验证护照是否合法
+ * @param { String } passport
+ * @returns { Boolean }
+ * @author Jackie
+ * @date 2020-06-02 17:20
+ */
+export const validPassport = (passport) => {
+  return /(^[a-zA-Z]{5,17}$)|(^[a-zA-Z0-9]{5,17}$)/.test(passport)
+}
+
+/**
+ * @description 验证港澳通行证是否合法
+ * @param { String } HKMacaoPass
+ * @returns { Boolean }
+ * @author Jackie
+ * @date 2020-06-02 17:20
+ */
+export const validHKMacaoPass = (HKMacaoPass) => {
+  return /^[HMhm]{1}([0-9]{10}|[0-9]{8})$/.test(HKMacaoPass)
+}
+
+/**
+ * @description 验证台湾通行证是否合法
+ * @param { String } TaiwanPass
+ * @returns { Boolean }
+ * @author Jackie
+ * @date 2020-06-02 17:20
+ */
+export const validTaiwanPass = (TaiwanPass) => {
+  return /^[0-9]{8}$|^[0-9]{10}$/.test(TaiwanPass)
 }
 
 /**
