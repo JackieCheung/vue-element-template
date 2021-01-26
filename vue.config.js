@@ -7,7 +7,11 @@ function resolve (dir) {
 
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
+// const CompressionPlugin = require('compression-webpack-plugin')
+
 const name = process.env.VUE_APP_TITLE || 'Vue Element Template' // page title
+
+// const timestamp = +new Date()
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -94,6 +98,14 @@ module.exports = {
       })
       .end()
 
+    // set loader for .cur
+    config.module
+      .rule('url-loader')
+      .test(/\.(cur)(\?.*)?$/)
+      .use('url-loader')
+      .loader('url-loader')
+      .end()
+
     /**
      * preserveWhitespace Deprecated since vue@2.6
      * Recommend whitespace: 'condense', it is the default config in new vue-cli https://github.com/vuejs/vue-cli/pull/3853
@@ -119,49 +131,57 @@ module.exports = {
     //   )
 
     config
-      .when(process.env.NODE_ENV !== 'development',
-        config => {
-          config
-            .plugin('ScriptExtHtmlWebpackPlugin')
-            .after('html')
-            .use('script-ext-html-webpack-plugin', [{
-              // `runtime` must same as runtimeChunk name. default is `runtime`
-              inline: /runtime\..*\.js$/
-            }])
-            .end()
-          config
-            .optimization
-            .splitChunks({
-              chunks: 'all',
-              cacheGroups: {
-                libs: {
-                  name: 'chunk-libs',
-                  test: /[\\/]node_modules[\\/]/,
-                  priority: 10,
-                  chunks: 'initial' // only package third parties that are initially dependent
-                },
-                elementUI: {
-                  name: 'chunk-elementUI', // split elementUI into a single package
-                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
-                },
-                commons: {
-                  name: 'chunk-commons',
-                  test: resolve('src/components'), // can customize your rules
-                  minChunks: 3, //  minimum common number
-                  priority: 5,
-                  reuseExistingChunk: true
-                }
+      .when(process.env.NODE_ENV !== 'development', config => {
+        config
+          .plugin('ScriptExtHtmlWebpackPlugin')
+          .after('html')
+          .use('script-ext-html-webpack-plugin', [{
+            // `runtime` must same as runtimeChunk name. default is `runtime`
+            inline: /runtime\..*\.js$/
+          }])
+          .end()
+        config
+          .optimization
+          .splitChunks({
+            chunks: 'all',
+            cacheGroups: {
+              libs: {
+                name: 'chunk-libs',
+                test: /[\\/]node_modules[\\/]/,
+                priority: 10,
+                chunks: 'initial' // only package third parties that are initially dependent
+              },
+              elementUI: {
+                name: 'chunk-elementUI', // split elementUI into a single package
+                priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+              },
+              commons: {
+                name: 'chunk-commons',
+                test: resolve('src/components'), // can customize your rules
+                minChunks: 3, //  minimum common number
+                priority: 5,
+                reuseExistingChunk: true
               }
-            })
+            }
+          })
           // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
-          config.optimization.runtimeChunk('single')
-        }
+        config.optimization.runtimeChunk('single')
+      }
       )
-    // 生产环境才开启，不然开发时lodash函数不起作用，也不报错
     if (process.env.NODE_ENV === 'production') {
+      // 生产环境才开启，不然开发时lodash函数不起作用，也不报错
       config.plugin('lodashModuleReplacement')
         .use(new LodashModuleReplacementPlugin())
+      // // 开启 gzip 压缩
+      // config.plugin('compressionPlugin')
+      //   .use(new CompressionPlugin({
+      //     algorithm: 'gzip',
+      //     test: /\.(js|css|json|txt|html|ico|svg|bmp|woff|woff2|ttf)(\?.*)?$/i, // 所有匹配该正则的资源都会被处理，图片（png、gif、jpg、jpeg）不进行压缩，默认值是全部资源
+      //     threshold: 1024 * 10, // 只有大小大于该值的资源会被处理，单位是 bytes，默认值是 0
+      //     deleteOriginalAssets: false, // 是否删除原始资源，默认值是 false，若设置为 true，则 Nginx 的 gzip_static 静态压缩不会生效，需要 Nginx 配置在线压缩
+      //     minRatio: 0.8 // 只有压缩率（压缩大小 ÷ 原始大小）小于该值的资源才会被处理，默认值是 0.8
+      //   }))
     }
   }
 }
