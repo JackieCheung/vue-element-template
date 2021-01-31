@@ -5,12 +5,6 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-
-// const CompressionPlugin = require('compression-webpack-plugin')
-
 const name = process.env.VUE_APP_TITLE || 'Vue Element Template' // page title
 
 // const timestamp = +new Date()
@@ -56,6 +50,12 @@ module.exports = {
     },
     before: require('./mock/mock-server.js')
   },
+  // css: {
+  //   extract: { // 重构打包编译后的css文件名称【模块名称.时间戳.css】
+  //     filename: `static/css/[name].${timestamp}.css`,
+  //     chunkFilename: `static/css/[name].${timestamp}.css`
+  //   }
+  // },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
@@ -67,11 +67,12 @@ module.exports = {
         '_c': resolve('src/components')
       }
     }
+    // , output: { // 重构打包编译后的js文件名称【模块名称.时间戳.js】
+    //   filename: `static/js/[name].${timestamp}.js`,
+    //   chunkFilename: `static/js/[name].${timestamp}.js`
+    // }
   },
   chainWebpack (config) {
-    // Visualize size of webpack output files with an interactive zoomable treemap.
-    config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin)
-
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {
@@ -176,11 +177,19 @@ module.exports = {
         }
       )
 
-    config.plugin('lodashModuleReplacement')
-      .use(new LodashModuleReplacementPlugin())
-
     if (process.env.NODE_ENV === 'production') {
+      // Visualize size of webpack output files with an interactive zoomable treemap.
+      const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+      config.plugin('webpack-bundle-analyzer').use(BundleAnalyzerPlugin).tap(() => [{
+        analyzerMode: 'static'
+      }])
+
+      // Create smaller Lodash builds by replacing feature sets of modules with noop, identity, or simpler alternatives.
+      const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+      config.plugin('lodashModuleReplacement').use(new LodashModuleReplacementPlugin())
+
       // // 开启 gzip 压缩
+      // const CompressionPlugin = require('compression-webpack-plugin')
       // config.plugin('compressionPlugin')
       //   .use(new CompressionPlugin({
       //     algorithm: 'gzip',

@@ -1,37 +1,38 @@
 import Vue from 'vue'
-
-import 'view-design/dist/styles/iview.css' // View UI css
-
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-
-import 'normalize.css/normalize.css' // a modern alternative to CSS resets
-import '@/assets/styles/index.scss' // global css
-
-import App from './App'
 import store from './store'
 import router from './router'
+import App from './App'
+
+import './vendors/view-ui' // View UI
+import 'view-design/dist/styles/iview.css' // view-design css
+
+import './vendors/element-ui' // Element UI
+
+import 'normalize.css/normalize.css' // a modern alternative to CSS resets
+import './assets/styles/index.scss' // global css
 
 import './router/auth' // permission control
 
-import * as filters from './filters' // global filters
 import './assets/icons' // Svg Icon
 import './vendors/font-awesome-icon' // Font Awesome Icon
+
 import './vendors/lodash' // lodash
-import './vendors/element-ui' // Element UI
-import './vendors/view-ui' // View UI
-import EIcon from './components/Icon'
-import ElScrollbarContainer from '@/components/ElScrollbarContainer'
-
-Vue.use(Element)
-
-Vue.component('EIcon', EIcon)
-
-Vue.component('ElScrollbarContainer', ElScrollbarContainer)
 
 // registers customized directives
-import directives from '@/directives'
+import directives from './directives'
 Vue.use(directives)
+
+// registers global utility filters
+import * as filters from './filters'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
+import EIcon from './components/Icon'
+Vue.component('EIcon', EIcon)
+
+import ElScrollbarContainer from './components/ElScrollbarContainer'
+Vue.component('ElScrollbarContainer', ElScrollbarContainer)
 
 /**
  * If you don't want to use mock-server
@@ -45,11 +46,6 @@ Vue.use(directives)
 //   const { mockXHR } = require('../mock')
 //   mockXHR()
 // }
-
-// registers global utility filters
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-})
 
 // registers an event hub
 Vue.prototype.$eventHub = Vue.prototype.$eventHub || new Vue()

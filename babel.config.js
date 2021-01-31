@@ -11,8 +11,15 @@ module.exports = {
       'plugins': ['dynamic-import-node']
     }
   },
-  plugins: ['lodash', ['import', {
-    'libraryName': 'view-design',
-    'libraryDirectory': 'src/components'
-  }]]
+  plugins: [
+    ['lodash'],
+    ['import', {
+      'libraryName': 'view-design',
+      'libraryDirectory': 'src/components'
+    }, 'view-design'],
+    ['component', {
+      'libraryName': 'element-ui',
+      'styleLibraryName': 'theme-chalk'
+    }]
+  ]
 }
