@@ -148,7 +148,7 @@
 </template>
 
 <script>
-  import debounce from 'lodash/debounce'
+  import _ from 'lodash'
   /**
    * refer to https://github.com/xyxiao001/vue-cropper
    */
@@ -270,7 +270,7 @@
         this.$emit('imgLoad', status === 'success')
         // hack
         if (this.cropBoxCover) {
-          this.$nextTick(_ => {
+          this.$nextTick(() => {
             this.$refs.imageCropper.cropW = this.cropWidth
             this.$refs.imageCropper.cropH = this.cropHeight
             setTimeout(() => {
@@ -282,7 +282,7 @@
           })
         }
       },
-      handleRealTime: debounce(function (obj) {
+      handleRealTime: _.debounce(function (obj) {
         this.getCropData(data => { this.preview.url = data })
         this.$emit('realTime', obj)
         this.$emit('real-time', obj)
@@ -365,7 +365,7 @@
                   this.cropHeight = height
                   this.cropWidth = width
                 }
-                this.cropWidth > MAX_WIDTH ? this.cropWidth = MAX_WIDTH : ''
+                this.cropWidth > MAX_WIDTH && (this.cropWidth = MAX_WIDTH)
               }
               image.crossOrigin = 'anonymous'
               image.src = this.imgSrc

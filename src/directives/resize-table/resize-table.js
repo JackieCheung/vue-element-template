@@ -1,5 +1,5 @@
 import { generateGuid, off, on } from '@/utils/tools'
-import throttle from 'lodash/throttle'
+import _ from 'lodash'
 
 /**
  * How to use:
@@ -23,7 +23,7 @@ const resizeHandler = ({ target, scoped }) => {
       target.style.cursor = 's-resize'
 
       !target[scoped].mouseDownHandler && (target[scoped].mouseDownHandler = () => {
-        !document[scoped].mouseMoveHandler && (document[scoped].mouseMoveHandler = throttle(e => {
+        !document[scoped].mouseMoveHandler && (document[scoped].mouseMoveHandler = _.throttle(e => {
           target.style.height = 'auto'
 
           const y = e.clientY

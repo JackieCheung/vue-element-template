@@ -29,7 +29,7 @@
             vnodes.push(<svg-icon icon-class={icon} class='icon' />)
             break
           case 'element-ui':
-            vnodes.push(<i class={`${icon} icon`} />)
+            vnodes.push(<i class={`icon ${icon}`} />)
             break
           case 'view-ui':
             vnodes.push(<Icon class='icon' type={icon} />)

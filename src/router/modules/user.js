@@ -7,7 +7,7 @@ const userRoute = {
   name: 'User',
   meta: {
     title: 'User',
-    icon: 'table'
+    icon: 'user'
   }
 }
 export default userRoute

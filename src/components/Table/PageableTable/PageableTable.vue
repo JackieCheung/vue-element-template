@@ -30,7 +30,7 @@
   import ETable from '../ETable'
   import Pagination from '_c/Pagination'
   import { scrollTo } from '@/utils/scroll-to'
-  import debounce from 'lodash/debounce'
+  import _ from 'lodash'
 
   export default {
     name: 'PageableTable',
@@ -190,7 +190,7 @@
         immediate: true
       },
       criteriaBuilder: {
-        handler: debounce(function (newValue) {
+        handler: _.debounce(function (newValue) {
           this.autoLoad && (typeof newValue.filter === 'undefined' || newValue.filter && JSON.stringify(newValue.filter) !== '{}') && this.renderTable(newValue)
         }, 100),
         deep: true
