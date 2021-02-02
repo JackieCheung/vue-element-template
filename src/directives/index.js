@@ -1,22 +1,11 @@
-import authImage from '@/directives/auth-image'
-import dragTable from '@/directives/drag-table'
-import adaptiveTable from '@/directives/adaptive-table'
-import resizeTable from '@/directives/resize-table'
-import immutableSelector from '@/directives/immutable-selector'
-import clipboard from '@/directives/clipboard'
-import permission from '@/directives/permission'
-import wave from '@/directives/wave'
+import { getCamelCase } from '@/utils/tools'
 
-const directives = {
-  authImage,
-  dragTable,
-  adaptiveTable,
-  resizeTable,
-  immutableSelector,
-  clipboard,
-  permission,
-  wave
-}
+const ctx = require.context('./', true, /(?!\.).(\/index\.js)$/)
+
+const directives = ctx.keys().reduce((res, key) => {
+  res[getCamelCase(key.match(/(?<=\.\/).*?(?=\/)/)[0])] = ctx(key).default
+  return res
+}, {})
 
 export default {
   install (Vue) {
