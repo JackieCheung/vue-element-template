@@ -112,6 +112,14 @@ module.exports = {
       .loader('url-loader')
       .end()
 
+    // // compress images
+    // config.module
+    //   .rule('images')
+    //   .use('image-webpack-loader')
+    //   .loader('image-webpack-loader')
+    //   .options({ disable: process.env.NODE_ENV === 'development' })
+    //   .end()
+
     /**
      * preserveWhitespace Deprecated since vue@2.6
      * Recommend whitespace: 'condense', it is the default config in new vue-cli https://github.com/vuejs/vue-cli/pull/3853
