@@ -66,7 +66,6 @@ Vue
   .use(Card)
   .use(Carousel)
   .use(CarouselItem)
-  .use(Cascader)
   .use(Checkbox)
   .use(Col)
   .use(DatePicker)
@@ -108,6 +107,7 @@ Vue
   .use(Tooltip)
   .use(Tree)
   .use(Upload)
+  .use(Cascader)
 
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
