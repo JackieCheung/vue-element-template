@@ -1,5 +1,8 @@
 <template>
-  <div class="sticky-bottom-toolbar" :style="{ width: `calc(100% - ${paddingLeft})` }">
+  <div
+    class="sticky-bottom-toolbar"
+    :style="{ width: `calc(100% - ${paddingLeft})` }"
+  >
     <div style="float: left">
       <slot name="title">{{ title }}</slot>
     </div>
@@ -44,8 +47,8 @@
     background: #fff;
     border-top: 1px solid #e8e8e8;
     padding: 0 24px;
-    z-index: 9;
-    transition: all 0.28s;
+    z-index: 3000;
+    transition: width 0.28s;
 
     &::after {
       content: "";
