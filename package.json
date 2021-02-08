@@ -77,10 +77,10 @@
     "vue": "^2.6.12",
     "vue-count-to": "^1.0.13",
     "vue-cropper": "^0.5.6",
-    "vue-router": "^3.4.9",
+    "vue-router": "^3.5.1",
     "vue-splitpane": "^1.0.6",
     "vuedraggable": "^2.24.3",
-    "vuex": "^3.6.0",
+    "vuex": "^3.6.2",
     "xlsx": "^0.16.9"
   },
   "devDependencies": {
