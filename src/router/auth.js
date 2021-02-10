@@ -65,6 +65,10 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch('user/resetToken')
           Message.error(error.message || '获取用户信息失败，请重新登录！')
           next(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
+          // next({
+          //   path: '/login',
+          //   query: { redirect: to.path, ...to.query }
+          // })
           NProgress.done()
         }
       }
@@ -77,6 +81,10 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // other pages that do not have permission to access are redirected to the login page
       next(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
+      // next({
+      //   path: '/login',
+      //   query: { redirect: to.path, ...to.query }
+      // })
       NProgress.done()
     }
   }
