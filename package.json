@@ -103,7 +103,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.19.0",
     "eslint-plugin-vue": "^7.5.0",
-    "html-webpack-plugin": "^5.0.0",
+    "html-webpack-plugin": "^4.5.1",
     "husky": "^5.0.9",
     "image-webpack-loader": "^7.0.1",
     "lint-staged": "^10.5.4",
