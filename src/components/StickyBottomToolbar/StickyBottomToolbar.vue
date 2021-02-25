@@ -29,7 +29,7 @@
         device: 'app/device'
       }),
       paddingLeft () {
-        return this.device === 'desktop' ? this.sidebar.opened ? '210px' : '54px' : '0px'
+        return this.sidebar.opened ? '210px' : this.device === 'desktop' ? '54px' : '0px'
       }
     }
   }
@@ -47,8 +47,8 @@
     background: #fff;
     border-top: 1px solid #e8e8e8;
     padding: 0 24px;
-    z-index: 3000;
-    transition: width 0.28s;
+    z-index: 9;
+    transition: width .28s;
 
     &::after {
       content: "";
