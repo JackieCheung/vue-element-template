@@ -9,7 +9,11 @@ import {
   faUndo,
   faRedo,
   faUpload,
-  faSignOutAlt
+  faSignOutAlt,
+  faIndent,
+  faOutdent,
+  faExpand,
+  faCompress
 } from '@fortawesome/free-solid-svg-icons'
 // import {} from '@fortawesome/free-regular-svg-icons'
 // import {} from '@fortawesome/free-brands-svg-icons'
@@ -27,7 +31,11 @@ library.add(
   faUndo,
   faRedo,
   faUpload,
-  faSignOutAlt
+  faSignOutAlt,
+  faIndent,
+  faOutdent,
+  faExpand,
+  faCompress
 )
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)

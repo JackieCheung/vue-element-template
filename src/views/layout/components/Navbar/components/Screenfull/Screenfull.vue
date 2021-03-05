@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <svg-icon :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="handleScreenFull"></svg-icon>
+  <div @click="handleScreenFull">
+    <e-icon
+      :icon="isFullscreen ? 'compress' : 'expand'"
+      style="width: 1.25em; height: 1.25em; vertical-align: middle;"
+    ></e-icon>
   </div>
 </template>
 

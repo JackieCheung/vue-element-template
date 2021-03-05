@@ -19,6 +19,7 @@
       }
     },
     render (h, context) {
+      const { listeners } = context
       const { iconType, icon, className: clsName } = context.props
       const { attrs, style: dynamicStyle, staticStyle, class: dynamicClass, staticClass } = context.data
 
@@ -43,16 +44,16 @@
       if (icon) {
         switch (iconType) {
           case 'font-awesome':
-            vnodes.push(<font-awesome-icon icon={icon} class={className} style={style} />)
+            vnodes.push(<font-awesome-icon icon={icon} class={className} style={style} on={ listeners } />)
             break
           case 'svg':
-            vnodes.push(<svg-icon icon-class={icon} class={className} style={style} />)
+            vnodes.push(<svg-icon icon-class={icon} class={className} style={style} on={ listeners } />)
             break
           case 'element-ui':
-            vnodes.push(<i class={`${className}${icon ? ' ' + icon : ''}`} style={style} />)
+            vnodes.push(<i class={`${className}${icon ? ' ' + icon : ''}`} style={style} on={ listeners } />)
             break
           case 'view-ui':
-            vnodes.push(<Icon class={className} color={attrs.color} type={icon} size={attrs.size} style={style} />)
+            vnodes.push(<Icon class={className} color={attrs.color} type={icon} size={attrs.size} style={style} on={ listeners } />)
             break
           default:
             break
