@@ -2,6 +2,7 @@
   <el-dropdown trigger="hover">
     <div class="avatar-wrapper">
       <img :src="avatar" class="user-avatar" alt="avatar" />
+      <span class="username">{{ username }}</span>
       <i class="el-icon-caret-bottom"></i>
     </div>
     <el-dropdown-menu slot="dropdown">
@@ -31,6 +32,9 @@
     computed: {
       avatar () {
         return this.$store.getters['user/userInfo']['avatar'] || require('@/assets/images/logo.png')
+      },
+      username () {
+        return this.$store.getters['user/userInfo']['username']
       }
     },
     methods: {
@@ -46,7 +50,8 @@
 
 <style lang="scss" scoped>
   .avatar-wrapper {
-    margin-top: 5px;
+    display: flex;
+    align-items: center;
     position: relative;
 
     .user-avatar {
@@ -55,6 +60,18 @@
       height: 40px;
       border-radius: 10px;
       object-fit: cover;
+    }
+
+    .username {
+      display: inline-block;
+      margin-left: 8px;
+      max-width: 100px;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+      color: #515a6e;
     }
 
     .el-icon-caret-bottom {
