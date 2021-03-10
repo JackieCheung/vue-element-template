@@ -71,11 +71,22 @@
         } else {
           document.body.removeEventListener('click', this.closeMenu)
         }
+      },
+      // cache visitedViews to sessionStorage
+      visitedViews (newValue) {
+        if (Array.isArray(newValue) && newValue.length) {
+          window.sessionStorage.setItem('visitedViews', JSON.stringify(
+            newValue.map(v => ({
+              name: v.name,
+              path: v.path
+            }))
+          ))
+        }
       }
     },
     mounted () {
       this.initTags()
-      this.addTags()
+      // this.addTags()
     },
     methods: {
       isActive (route) {
@@ -105,9 +116,39 @@
         })
         return tags
       },
+      filterVisitedTags (routes, basePath = '/') {
+        const visitedViews = JSON.parse((window.sessionStorage.getItem('visitedViews') || '[]'))
+        const visitedPaths = visitedViews.map(v => v.path)
+        let tags = []
+        routes.forEach(route => {
+          const tagPath = path.resolve(basePath, route.path)
+          if (route.meta && !route.meta.affix && visitedPaths.includes(tagPath)) {
+            tags.push({
+              fullPath: tagPath,
+              path: tagPath,
+              name: route.name,
+              meta: { ...route.meta }
+            })
+          }
+          if (route.children && route.children.length) {
+            const tempTags = this.filterVisitedTags(route.children, tagPath)
+            if (tempTags.length) {
+              tags = [...tags, ...tempTags]
+            }
+          }
+        })
+        return tags.sort((a, b) => visitedPaths.indexOf(a.path) - visitedPaths.indexOf(b.path))
+      },
       initTags () {
         const affixTags = this.affixTags = this.filterAffixTags(this.routes)
+        const visitedTags = this.filterVisitedTags(this.routes)
         for (const tag of affixTags) {
+          // must have tag name
+          if (tag.name) {
+            this.$store.dispatch('routerView/addVisitedView', tag)
+          }
+        }
+        for (const tag of visitedTags) {
           // must have tag name
           if (tag.name) {
             this.$store.dispatch('routerView/addVisitedView', tag)

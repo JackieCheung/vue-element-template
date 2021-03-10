@@ -53,6 +53,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    height: inherit;
 
     .user-avatar {
       cursor: pointer;
