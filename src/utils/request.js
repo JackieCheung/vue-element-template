@@ -91,7 +91,7 @@ HttpRequest.interceptors.response.use(
               })
               config.baseURL = ''
               config.headers['Authorization'] = accessToken
-              config.cancelDuplicateRequest = false
+              config.cancelToken = null
               reRequestQueue.forEach(cb => cb(accessToken))
               reRequestQueue = []
               // 重试当前请求并返回promise
@@ -121,7 +121,7 @@ HttpRequest.interceptors.response.use(
             reRequestQueue.push(accessToken => {
               config.baseURL = ''
               config.headers['Authorization'] = accessToken
-              config.cancelDuplicateRequest = false
+              config.cancelToken = null
               resolve(HttpRequest(config))
             })
           })
