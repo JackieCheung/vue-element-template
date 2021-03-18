@@ -189,12 +189,6 @@
         },
         immediate: true
       },
-      criteriaBuilder: {
-        handler: _.debounce(function (newValue) {
-          this.autoLoad && (typeof newValue.filter === 'undefined' || newValue.filter && JSON.stringify(newValue.filter) !== '{}') && this.renderTable(newValue)
-        }, 100),
-        deep: true
-      },
       filter: {
         handler (newValue) {
           if (typeof newValue === 'undefined') {
