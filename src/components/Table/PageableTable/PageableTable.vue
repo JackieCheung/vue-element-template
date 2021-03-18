@@ -212,6 +212,14 @@
         deep: true
       }
     },
+    created () {
+      this.$watch('criteriaBuilder', _.debounce(function (newValue) {
+        this.autoLoad && (typeof newValue.filter === 'undefined' || newValue.filter && JSON.stringify(newValue.filter) !== '{}') && this.renderTable(newValue)
+      }, 100), {
+        deep: true,
+        immediate: true
+      })
+    },
     methods: {
       // 加载表格
       renderTable (criteriaBuilder) {
