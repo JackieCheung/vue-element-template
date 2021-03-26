@@ -36,7 +36,12 @@
         :attrs="attrs"
         :column="col"
         :index="`${index}_${i}`"
-      ></nested-column>
+      >
+        <!-- 传递外层父组件定义的 slot 到内层 el-column 子组件 -->
+        <template v-for="slotName in Object.keys($scopedSlots)" #[slotName]="{ scope }">
+          <slot :name="slotName" :scope="scope"></slot>
+        </template>
+      </nested-column>
     </template>
     <template v-if="column.headerSlot" #header="scope">
       <slot :name="column.headerSlot" :scope="scope">

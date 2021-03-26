@@ -47,7 +47,12 @@
         :attrs="attrs"
         :column="column"
         :index="index"
-      ></nested-column>
+      >
+        <!-- 传递外层父组件定义的 slot 到内层 el-column 子组件 -->
+        <template v-for="slotName in Object.keys($scopedSlots)" #[slotName]="{ scope }">
+          <slot :name="slotName" :scope="scope"></slot>
+        </template>
+      </nested-column>
       <el-table-column
         v-else
         :key="column.key || column.prop || `column_${index}`"
