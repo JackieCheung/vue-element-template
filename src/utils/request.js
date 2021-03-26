@@ -89,7 +89,6 @@ HttpRequest.interceptors.response.use(
                 accessToken,
                 refreshToken
               })
-              config.baseURL = ''
               config.headers['Authorization'] = accessToken
               config.cancelToken = null
               reRequestQueue.forEach(cb => cb(accessToken))
@@ -119,7 +118,6 @@ HttpRequest.interceptors.response.use(
         } else {
           return new Promise(resolve => {
             reRequestQueue.push(accessToken => {
-              config.baseURL = ''
               config.headers['Authorization'] = accessToken
               config.cancelToken = null
               resolve(HttpRequest(config))
