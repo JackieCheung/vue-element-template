@@ -109,6 +109,9 @@ Vue
   .use(Upload)
   .use(Cascader)
 
+import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+Vue.component('ElImageViewer', ElImageViewer)
+
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert
