@@ -107,7 +107,15 @@
             :scope="scope"
           ></render-column>
           <slot v-else-if="column.slot" :name="column.slot" :scope="scope"></slot>
-          <span v-else>{{ (column.formatter && column.formatter(scope.row)) || scope.row[column.key || column.prop] || (scope.row[column.key || column.prop] === 0 ? scope.row[column.key || column.prop] : colEmptyText) }}</span>
+          <template v-else>
+            <div>
+              <span>{{ getCellValue(column, scope.row) }}</span>
+              <copy-to-clipboard
+                v-if="column.copyable && getCellValue(column, scope.row) !== colEmptyText"
+                :value="getCellValue(column, scope.row)"
+              />
+            </div>
+          </template>
         </template>
       </el-table-column>
     </template>
@@ -118,14 +126,16 @@
 </template>
 
 <script>
-  import RenderColumn from './components/RenderColumn'
+  import CopyToClipboard from '@/components/CopyToClipboard'
   import NestedColumn from './components/NestedColumn'
+  import RenderColumn from './components/RenderColumn'
 
   export default {
     name: 'ETable',
     components: {
-      RenderColumn,
-      NestedColumn
+      CopyToClipboard,
+      NestedColumn,
+      RenderColumn
     },
     props: {
       loading: {
@@ -170,6 +180,9 @@
     methods: {
       specialColumn (column) {
         return ['selection', 'index'].includes(column.type)
+      },
+      getCellValue (column, row) {
+        return (column.formatter && column.formatter(row)) || row[column.key || column.prop] || (row[column.key || column.prop] === 0 ? row[column.key || column.prop] : this.colEmptyText)
       }
     }
   }
