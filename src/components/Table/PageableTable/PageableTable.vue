@@ -246,6 +246,7 @@
       },
       // 重载表格
       reload () {
+        this.clearSelection()
         this.renderTable(this.criteriaBuilder)
       },
       // 清空排序条件
