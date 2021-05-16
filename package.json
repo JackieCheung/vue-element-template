@@ -76,7 +76,7 @@
     "vue-splitpane": "^1.0.6",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",
-    "xlsx": "^0.16.9"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",
@@ -118,7 +118,7 @@
     "svgo-loader": "^3.0.0",
     "tasksfile": "^5.1.1",
     "vue-template-compiler": "^2.6.12",
-    "webpack-bundle-analyzer": "^4.4.1"
+    "webpack-bundle-analyzer": "^4.4.2"
   },
   "engines": {
     "node": ">=8.9",
